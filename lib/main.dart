@@ -1,53 +1,37 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:async';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-}
+import 'screens/screens.dart';
+import 'shared/shared.dart';
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+      ],
+      routes: {
+        '/': (context) => AboutScreen(), //LoginScreen(),
+        //'/topics': (context) => TopicsScreen(),
+        //'/profile': (context) => ProfileScreen(),
+        //'/about': (context) => AboutScreen(),
+      },
+      theme: ThemeData(
+        fontFamily: 'Nunito',
+        bottomAppBarTheme: BottomAppBarTheme(color: Colors.black87),
+        brightness: Brightness.dark,
+        textTheme: TextTheme(
+          bodyText2: TextStyle(fontSize: 18),
+          bodyText1: TextStyle(fontSize: 16),
+          button: TextStyle(letterSpacing: 1.5, fontWeight: FontWeight.bold),
+          headline5: TextStyle(fontWeight: FontWeight.bold),
+          subtitle1: TextStyle(color: Colors.grey),
+        ),
+      ),
     );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  final FirebaseFirestore db = FirebaseFirestore.instance;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('Home')),
-        body: Center(
-          child: StreamBuilder<DocumentSnapshot>(
-              stream: db
-                  .collection('users')
-                  .doc('XAKrDlQCIVbwouRBNIvP')
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Image.network(snapshot.data?.get('photoURL')),
-                      Text(
-                        snapshot.data?.get('username'),
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ],
-                  );
-                } else {
-                  return CircularProgressIndicator();
-                }
-              }),
-        ));
   }
 }
