@@ -45,6 +45,11 @@ dependencies:
 
   font_awesome_flutter: ^9.1.0
 
+  # Packages used in maps functionality
+  dio: ^4.0.0
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.0.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

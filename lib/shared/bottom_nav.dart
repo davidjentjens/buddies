@@ -11,8 +11,8 @@ class AppBottomNav extends StatelessWidget {
           label: 'Topics',
         ),
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.bolt, size: 20),
-          label: 'About',
+          icon: Icon(FontAwesomeIcons.mapMarkerAlt, size: 20),
+          label: 'Maps',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.userCircle, size: 20),
@@ -25,7 +25,7 @@ class AppBottomNav extends StatelessWidget {
           case 0:
             break;
           case 1:
-            Navigator.pushNamed(context, '/about');
+            Navigator.pushNamed(context, '/map');
             break;
           case 2:
             Navigator.pushNamed(context, '/profile');

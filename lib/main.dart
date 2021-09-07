@@ -1,3 +1,4 @@
+import 'package:buddies/screens/map.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
           '/topics': (context) => TopicsScreen(),
           '/profile': (context) => ProfileScreen(),
           //'/about': (context) => AboutScreen(),
+          '/map': (context) => MapScreen(),
         },
         theme: ThemeData(
           fontFamily: 'Nunito',
