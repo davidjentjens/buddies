@@ -22,12 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       }
     });
-
-    /*if (user != null) {
-      Future.delayed(Duration.zero, () {
-        Navigator.pushReplacementNamed(context, '/home');
-      });
-    }*/
   }
 
   @override
