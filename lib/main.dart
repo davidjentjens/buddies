@@ -37,10 +37,13 @@ class MyApp extends StatelessWidget {
           //'/about': (context) => AboutScreen(),
           '/map': (context) => MapScreen(),
         },
+        themeMode: ThemeMode.light,
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Nunito',
           bottomAppBarTheme: BottomAppBarTheme(color: Colors.black87),
-          brightness: Brightness.dark,
+          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: const Color(0xFFFFF8E5),
           textTheme: TextTheme(
             bodyText2: TextStyle(fontSize: 18),
             bodyText1: TextStyle(fontSize: 16),

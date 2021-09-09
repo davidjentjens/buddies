@@ -1,24 +1,19 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import "package:flutter/material.dart";
 
 import 'package:buddies/services/services.dart';
 
 class LoginScreen extends StatefulWidget {
-  createState() => LoginScreenState();
+  @override
+  createState() => _LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   AuthService auth = AuthService();
 
   @override
   void initState() {
     super.initState();
     var user = auth.getUser;
-
-    log(user.toString());
 
     if (user != null) {
       Future.delayed(Duration.zero, () {
@@ -30,71 +25,93 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(30),
-        decoration: BoxDecoration(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            FlutterLogo(
-              size: 150,
-            ),
-            Text(
-              'Login to Start',
-              style: Theme.of(context).textTheme.headline5,
-              textAlign: TextAlign.center,
-            ),
-            Text('Your Tagline'),
-            LoginButton(
-              text: 'LOGIN WITH GOOGLE',
-              icon: FontAwesomeIcons.google,
-              color: Colors.black45,
-              loginMethod: auth.googleSignIn,
-            ),
-            LoginButton(text: 'Continue as Guest', loginMethod: auth.anonLogin)
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// A resuable login button for multiple auth methods
-class LoginButton extends StatelessWidget {
-  final Color color;
-  final IconData? icon;
-  final String text;
-  final Function loginMethod;
-
-  const LoginButton(
-      {Key? key,
-      required this.text,
-      this.icon,
-      this.color = Colors.transparent,
-      required this.loginMethod})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      child: TextButton.icon(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(color),
-          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(30)),
-        ),
-        icon: Icon(icon, color: Colors.white),
-        onPressed: () async {
-          var user = await loginMethod();
-          if (user != null) {
-            Navigator.pushReplacementNamed(context, '/topics');
-          }
-        },
-        label: Expanded(
-          child: Text('$text', textAlign: TextAlign.center),
-        ),
-      ),
-    );
+        body: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(32),
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Image.asset("assets/logo.png"),
+                  const SizedBox(height: 64),
+                  const TextField(
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      labelText: "Username",
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const TextField(
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                        labelText: "Password",
+                        border: OutlineInputBorder(),
+                        prefixIcon: Icon(Icons.lock)),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: const Text("Sign in"),
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(0xFF00A19D),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Divider(
+                        color: Colors.grey.withOpacity(1),
+                      )),
+                      Padding(
+                          child: Text("or",
+                              style: TextStyle(
+                                color: Colors.grey.withOpacity(1),
+                              )),
+                          padding: const EdgeInsets.only(left: 8, right: 8)),
+                      Expanded(
+                          child: Divider(
+                        color: Colors.grey.withOpacity(1),
+                      ))
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: SizedBox(
+                              height: 50,
+                              child: ElevatedButton.icon(
+                                onPressed: () async {
+                                  var user = await auth.googleSignIn();
+                                  if (user != null) {
+                                    Navigator.pushReplacementNamed(
+                                        context, '/topics');
+                                  }
+                                },
+                                icon: Image.asset("assets/google_icon.png"),
+                                label: const Text("Sign in with Google"),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.white,
+                                    onPrimary: Colors.black,
+                                    padding: const EdgeInsets.all(8)),
+                              )))
+                    ],
+                  ),
+                ]))));
   }
 }
