@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (user != null) {
       Future.delayed(Duration.zero, () {
-        Navigator.pushReplacementNamed(context, '/about');
+        Navigator.pushReplacementNamed(context, '/home');
       });
     }
   }

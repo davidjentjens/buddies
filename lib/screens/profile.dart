@@ -13,20 +13,45 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-        title: Text(user.email ?? 'fred'),
+        title: Text("Profile"),
+        backgroundColor: Color(0xFF00A19D),
       ),
-      body: Center(
-        child: TextButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(32),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  child: CircleAvatar(
+                    backgroundImage: user.photoURL != null
+                        ? NetworkImage(user.photoURL!)
+                        : AssetImage("assets/avatar_placeholder.jpg")
+                            as ImageProvider,
+                  ),
+                  height: 150,
+                  width: 150),
+              SizedBox(height: 8),
+              Text(user.displayName ?? '',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
+              SizedBox(height: 48),
+              SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await auth.signOut();
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/', (route) => false);
+                  },
+                  child: const Text("Logout"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                  ),
+                ),
+              )
+            ],
           ),
-          child: Text('Logout'),
-          onPressed: () async {
-            await auth.signOut();
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/', (route) => false);
-          },
         ),
       ),
     );
