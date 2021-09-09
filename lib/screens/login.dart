@@ -13,13 +13,21 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    var user = auth.getUser;
+    var user = auth.user;
 
-    if (user != null) {
+    user.listen((user) {
+      if (user != null) {
+        Future.delayed(Duration.zero, () {
+          Navigator.pushReplacementNamed(context, '/home');
+        });
+      }
+    });
+
+    /*if (user != null) {
       Future.delayed(Duration.zero, () {
         Navigator.pushReplacementNamed(context, '/home');
       });
-    }
+    }*/
   }
 
   @override

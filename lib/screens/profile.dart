@@ -1,3 +1,4 @@
+import 'package:buddies/shared/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<User>(context);
+    var user = Provider.of<User?>(context);
+
+    if (user == null) {
+      return LoadingScreen();
+    }
 
     return Scaffold(
       appBar: AppBar(
