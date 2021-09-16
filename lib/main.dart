@@ -1,4 +1,5 @@
 import 'package:buddies/screens/map.dart';
+import 'package:buddies/services/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +25,11 @@ class MyApp extends StatelessWidget {
         StreamProvider<User?>.value(
           initialData: null,
           value: AuthService().user,
-        )
+        ),
+        StreamProvider<Report?>.value(
+          initialData: Report(topics: [], total: 0, uid: ''),
+          value: Global.reportRef.documentStream,
+        ),
       ],
       child: MaterialApp(
         navigatorObservers: [

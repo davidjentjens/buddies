@@ -41,9 +41,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  # Misc packages
   provider: ^6.0.0
-
   font_awesome_flutter: ^9.1.0
+  rxdart: ^0.27.2
 
   # Packages used in maps functionality
   dio: ^4.0.0

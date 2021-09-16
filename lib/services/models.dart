@@ -51,8 +51,9 @@ class Quiz {
         topic: data['topic'] ?? '',
         description: data['description'] ?? '',
         video: data['video'] ?? '',
-        questions:
-            (data['questions'] ?? []).map((v) => Question.fromMap(v)).toList());
+        questions: (data['questions'] ?? [])
+            .map<Question>((v) => Question.fromMap(v))
+            .toList());
   }
 }
 
@@ -77,7 +78,7 @@ class Topic {
       description: data['description'] ?? '',
       img: data['img'] ?? 'default.png',
       quizzes: (data['quizzes'] ?? [])
-          .map((v) => Quiz.fromMap(v))
+          .map<Quiz>((v) => Quiz.fromMap(v))
           .toList(), //data['quizzes'],
     );
   }
