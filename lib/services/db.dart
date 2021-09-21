@@ -64,7 +64,7 @@ class Collection<T> {
     var snapshot = ref.snapshots();
 
     return snapshot.map((list) =>
-        list.docs.map((doc) => Global.models[T](doc.data) as T).toList());
+        list.docs.map((doc) => Global.models[T](doc.data()) as T).toList());
   }
 }
 

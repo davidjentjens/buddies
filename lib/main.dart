@@ -31,10 +31,6 @@ class MyApp extends StatelessWidget {
           initialData: Report(topics: [], total: 0, uid: ''),
           value: Global.reportRef.documentStream,
         ),
-        StreamProvider<List<Event>>.value(
-          initialData: [],
-          value: Collection<Event>(path: '/events').streamData(),
-        ),
       ],
       child: MaterialApp(
         navigatorObservers: [

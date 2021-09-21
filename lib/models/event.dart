@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:developer';
 
 import './models.dart';
 
@@ -9,6 +6,7 @@ class Event {
   String id;
   String title;
   String description;
+  String photoUrl;
   Timestamp startTime;
   Timestamp endTime;
   GeoPoint location;
@@ -19,6 +17,7 @@ class Event {
       {required this.id,
       required this.title,
       required this.description,
+      required this.photoUrl,
       required this.startTime,
       required this.endTime,
       required this.location,
@@ -30,6 +29,7 @@ class Event {
       id: data['id'],
       title: data['title'],
       description: data['description'],
+      photoUrl: data['photoUrl'],
       startTime: data['startTime'],
       endTime: data['endTime'],
       location: data['location'],
