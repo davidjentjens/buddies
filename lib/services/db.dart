@@ -30,11 +30,11 @@ class Document<T> {
   Future<T> getData() async {
     var response = await ref.get();
 
-    return Global.models[T](response.data as T);
+    return Global.models[T](response.data() as T);
   }
 
   Stream<T> streamData() {
-    return ref.snapshots().map((v) => Global.models[T](v.data) as T);
+    return ref.snapshots().map((v) => Global.models[T](v.data()) as T);
   }
 
   Future<void> upsert(Map data) {
@@ -53,17 +53,17 @@ class Collection<T> {
   }
 
   Future<List<T>> getData() async {
-    var snapshots = await ref.get();
+    var snapshot = await ref.get();
 
-    return snapshots.docs
+    return snapshot.docs
         .map((doc) => Global.models[T](doc.data()) as T)
         .toList();
   }
 
   Stream<List<T>> streamData() {
-    var snapshots = ref.snapshots();
+    var snapshot = ref.snapshots();
 
-    return snapshots.map((list) =>
+    return snapshot.map((list) =>
         list.docs.map((doc) => Global.models[T](doc.data) as T).toList());
   }
 }

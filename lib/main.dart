@@ -10,6 +10,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'screens/screens.dart';
 import 'shared/shared.dart';
 import 'services/services.dart';
+import 'models/models.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,10 @@ class MyApp extends StatelessWidget {
           initialData: Report(topics: [], total: 0, uid: ''),
           value: Global.reportRef.documentStream,
         ),
+        StreamProvider<List<Event>>.value(
+          initialData: [],
+          value: Collection<Event>(path: '/events').streamData(),
+        ),
       ],
       child: MaterialApp(
         navigatorObservers: [
@@ -38,7 +43,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => LoginScreen(),
           '/home': (context) => NavController(),
-          '/topics': (context) => TopicsScreen(),
+          '/events': (context) => EventScreen(),
           '/map': (context) => MapScreen(),
           '/profile': (context) => ProfileScreen(),
           '/about': (context) => AboutScreen(),

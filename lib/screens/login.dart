@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   var user = await auth.googleSignIn();
                                   if (user != null) {
                                     Navigator.pushReplacementNamed(
-                                        context, '/topics');
+                                        context, '/home');
                                   }
                                 },
                                 icon: Image.asset("assets/google_icon.png"),

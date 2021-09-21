@@ -1,4 +1,3 @@
-import 'package:buddies/shared/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,7 @@ class _NavControllerState extends State<NavController> {
   int _selectedIndex = 0;
 
   static const List<Widget> _screens = [
-    TopicsScreen(),
+    EventScreen(),
     MapScreen(),
     AboutScreen()
   ];
