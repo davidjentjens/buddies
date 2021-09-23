@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../models/models.dart';
 import '../screens/screens.dart';
@@ -37,26 +38,44 @@ class EventCard extends StatelessWidget {
                       EventImage(eventImage: event.photoUrl),
                       SizedBox(height: 8),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             this.event.title,
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          Icon(Icons.person, size: 16),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            event.participants.length.toString(),
-                            style: TextStyle(color: Colors.grey[600]),
+                          Row(
+                            children: [
+                              Icon(Icons.person, size: 16),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '${event.participants.length.toString()}',
+                                style: TextStyle(color: Colors.grey[600]),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      Text(this.event.description,
+                      Text(
+                        DateFormat.MMMMd('pt_BR')
+                            .add_jm()
+                            .format(event.startTime.toDate()),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(event.description,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                           style: TextStyle(fontSize: 18))
                     ],
                   ),

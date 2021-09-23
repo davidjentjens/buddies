@@ -1,6 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-import '../models/event.dart';
+import '../models/models.dart';
 import 'services.dart';
 
 /// Static global state. Immutable services that do not care about build context.
@@ -17,6 +17,7 @@ class Global {
     Quiz: (data) => Quiz.fromMap(data),
     Report: (data) => Report.fromMap(data),
     Event: (data) => Event.fromMap(data),
+    Category: (data) => Category.fromMap(data),
   };
 
   // Firestore References for Writes

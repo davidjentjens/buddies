@@ -1,16 +1,16 @@
-class UserData {
+class UserDetails {
   String uid;
   String name;
   String photoUrl;
 
-  UserData({
+  UserDetails({
     required this.uid,
     required this.name,
     required this.photoUrl,
   });
 
-  factory UserData.fromMap(Map data) {
-    return UserData(
+  factory UserDetails.fromMap(Map data) {
+    return UserDetails(
       uid: data['uid'],
       name: data['name'],
       photoUrl: data['photoUrl'],
