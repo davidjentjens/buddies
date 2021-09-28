@@ -23,7 +23,7 @@ class _NavControllerState extends State<NavController> {
   ];
 
   static const List<String> _screenTitles = [
-    "Topics",
+    "Pesquisar Eventos",
     "Buddies perto de você",
     "Sobre"
   ];
@@ -48,7 +48,10 @@ class _NavControllerState extends State<NavController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_screenTitles.elementAt(_selectedIndex)),
+        title: Text(
+          _screenTitles.elementAt(_selectedIndex),
+          style: Theme.of(context).textTheme.headline6,
+        ),
         backgroundColor: Color(0xFF00A19D),
         actions: [
           Padding(

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class EventIcon extends StatelessWidget {
   final String eventType;
+  final double? size;
+  final Color? color;
 
-  const EventIcon({Key? key, required this.eventType}) : super(key: key);
+  const EventIcon({Key? key, required this.eventType, this.size, this.color})
+      : super(key: key);
 
   _getIcon(type) {
     switch (type) {
@@ -30,8 +33,8 @@ class EventIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Icon(
       _getIcon(eventType),
-      size: 72,
-      color: Colors.orange[300],
+      size: size ?? 72,
+      color: color ?? Colors.orange[300],
     );
   }
 }

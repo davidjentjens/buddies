@@ -1,44 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
-import '../services/services.dart';
-import '../models/models.dart';
-import '../widgets/widgets.dart';
-
-class EventScreen extends StatelessWidget {
-  const EventScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<List<Event>>(
-        stream: Collection<Event>(path: '/events').streamData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                EventCard(event: snapshot.data[1]),
-                CategoryGrid(),
-              ],
-            );
-          } else {
-            return CircularProgressIndicator();
-          }
-        },
-      ),
-    );
-  }
-}
+import '../../services/services.dart';
+import '../../models/models.dart';
+import '../../widgets/widgets.dart';
 
 class CategoryGrid extends StatelessWidget {
   const CategoryGrid({
     Key? key,
   }) : super(key: key);
 
-  _categoryList(List<Category> categories) {
+  _categoryList(BuildContext context, List<Category> categories) {
     return categories
         .map(
           (category) => Card(
@@ -47,6 +18,7 @@ class CategoryGrid extends StatelessWidget {
             ),
             child: EventIcon(
               eventType: category.id,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         )
@@ -58,7 +30,6 @@ class CategoryGrid extends StatelessWidget {
     return StreamBuilder(
       stream: Collection<Category>(path: '/categories').streamData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        inspect(snapshot);
         if (snapshot.hasData) {
           return Expanded(
             child: Container(
@@ -68,7 +39,7 @@ class CategoryGrid extends StatelessWidget {
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 10,
                   crossAxisCount: 3,
-                  children: _categoryList(snapshot.data),
+                  children: _categoryList(context, snapshot.data),
                 ),
               ),
             ),
