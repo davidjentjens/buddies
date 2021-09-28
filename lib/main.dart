@@ -11,6 +11,8 @@ import 'screens/screens.dart';
 import 'shared/shared.dart';
 import 'services/services.dart';
 
+import './apptheme.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('pt_BR', null);
@@ -46,23 +48,7 @@ class MyApp extends StatelessWidget {
         },
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: 'Roboto',
-          bottomAppBarTheme: BottomAppBarTheme(color: Colors.black87),
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: const Color(0xFFFFF8E5),
-          textTheme: TextTheme(
-            bodyText2: TextStyle(fontSize: 18),
-            bodyText1: TextStyle(fontSize: 16),
-            button: TextStyle(
-              color: Colors.white,
-              letterSpacing: 1.5,
-              fontWeight: FontWeight.bold,
-            ),
-            headline5: TextStyle(fontWeight: FontWeight.bold),
-            subtitle1: TextStyle(color: Colors.grey),
-          ),
-        ),
+        theme: themeData,
       ),
     );
   }
