@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../screens/screens.dart';
-import './shared.dart';
 
 class NavController extends StatefulWidget {
   NavController({Key? key}) : super(key: key);

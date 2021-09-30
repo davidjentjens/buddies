@@ -15,7 +15,12 @@ class EventHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(14),
+      padding: EdgeInsets.only(
+        left: 22,
+        right: 22,
+        bottom: 22,
+        top: 14,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

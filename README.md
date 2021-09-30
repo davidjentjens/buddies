@@ -7,6 +7,7 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [x] Tela de mapa (puro, apenas com navegação)
 - [x] Modelagem de dados
 - [ ] Tela de eventos (com eventos mockados criados direto no banco)
+  - [x] Tela de detalhes o evento
   - [ ] Listagem de eventos
   - [ ] Busca simples
 - [ ] Tela de próximos eventos (com dados mockados)
