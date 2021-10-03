@@ -7,8 +7,8 @@ class AppBottomNav extends StatelessWidget {
     return BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
-          icon: Icon(FontAwesomeIcons.graduationCap, size: 20),
-          label: 'Topics',
+          icon: Icon(FontAwesomeIcons.home, size: 20),
+          label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.mapMarkerAlt, size: 20),

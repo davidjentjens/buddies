@@ -24,7 +24,7 @@ class _NavControllerState extends State<NavController> {
   static const List<String> _screenTitles = [
     "Pesquisar Eventos",
     "Buddies perto de você",
-    "Sobre"
+    "Seus eventos"
   ];
 
   void _onItemTapped(int index) {
@@ -47,6 +47,7 @@ class _NavControllerState extends State<NavController> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         title: Text(
           _screenTitles.elementAt(_selectedIndex),
           style: Theme.of(context).textTheme.headline6,
@@ -72,16 +73,16 @@ class _NavControllerState extends State<NavController> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.graduationCap, size: 20),
-            label: 'Topics',
+            icon: Icon(FontAwesomeIcons.home, size: 20),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.mapMarkerAlt, size: 20),
             label: 'Mapa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.userCircle, size: 20),
-            label: 'Sobre',
+            icon: Icon(FontAwesomeIcons.calendar, size: 20),
+            label: 'Agenda',
           ),
         ].toList(),
         currentIndex: _selectedIndex,
