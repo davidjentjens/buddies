@@ -11,7 +11,6 @@ class EventParticipants extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    inspect(event.participants);
     event.participants.sort((lhs, rhs) => lhs.uid.compareTo(event.creator.uid));
     return Padding(
       padding: EdgeInsets.only(

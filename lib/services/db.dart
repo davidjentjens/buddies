@@ -1,3 +1,4 @@
+import 'package:buddies/models/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
@@ -8,12 +9,14 @@ import './globals.dart';
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<Quiz> getQuiz(quizId) {
+  Future<List<Event>> getEventsForCategory(categoryId) {
     return _db
-        .collection('quizzes')
-        .doc(quizId)
+        .collection('events')
+        .where("category", isEqualTo: categoryId)
         .get()
-        .then((snap) => Quiz.fromMap(snap.data()));
+        .then((querySnap) =>  querySnap.docs.map(
+          (docSnap) => Event.fromMap(docSnap.data())).toList()
+        );
   }
 }
 

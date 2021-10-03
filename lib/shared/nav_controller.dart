@@ -52,7 +52,6 @@ class _NavControllerState extends State<NavController> {
           _screenTitles.elementAt(_selectedIndex),
           style: Theme.of(context).textTheme.headline6,
         ),
-        backgroundColor: Color(0xFF00A19D),
         actions: [
           Padding(
               padding: EdgeInsets.only(right: 20.0),
@@ -86,7 +85,7 @@ class _NavControllerState extends State<NavController> {
           ),
         ].toList(),
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xFF00A19D),
+        selectedItemColor: Theme.of(context).primaryColor,
         onTap: _onItemTapped,
       ),
     );

@@ -16,9 +16,9 @@ class EventScreen extends StatelessWidget {
         stream: Collection<Event>(path: '/events').streamData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            return ListView(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 EventCard(event: snapshot.data[1]),
                 CategoryGrid(),

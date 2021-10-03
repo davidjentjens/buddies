@@ -1,3 +1,4 @@
+import 'package:buddies/screens/category.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/services.dart';
@@ -16,9 +17,19 @@ class CategoryGrid extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            child: EventIcon(
-              eventType: category.id,
-              color: Theme.of(context).primaryColor,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          CategoryScreen(category: category),
+                    ),
+                  );
+              },
+              child: EventIcon(
+                eventType: category.id,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
         )
@@ -31,16 +42,16 @@ class CategoryGrid extends StatelessWidget {
       stream: Collection<Category>(path: '/categories').streamData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          return Expanded(
-            child: Container(
-              child: Padding(
-                padding: EdgeInsets.only(left: 12, right: 12),
-                child: GridView.count(
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 3,
-                  children: _categoryList(context, snapshot.data),
-                ),
+          return Container(
+            child: Padding(
+              padding: EdgeInsets.only(left: 12, right: 12),
+              child: GridView.count(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                children: _categoryList(context, snapshot.data),
               ),
             ),
           );
