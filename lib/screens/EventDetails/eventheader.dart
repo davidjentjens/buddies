@@ -46,11 +46,12 @@ class EventHeader extends StatelessWidget {
           SizedBox(
             height: 12,
           ),
-          Text(
-            event.description,
-            style: Theme.of(context).textTheme.bodyText1,
-            textAlign: TextAlign.justify,
-          ),
+          ExpandableText(event.description),
+          // Text(
+          //   event.description,
+          //   style: Theme.of(context).textTheme.bodyText1,
+          //   textAlign: TextAlign.justify,
+          // ),
           SizedBox(
             height: 16,
           ),
