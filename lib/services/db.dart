@@ -1,9 +1,6 @@
 import 'package:buddies/models/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rxdart/rxdart.dart';
 
-import './models.dart';
 import './globals.dart';
 
 class DatabaseService {
@@ -14,9 +11,9 @@ class DatabaseService {
         .collection('events')
         .where("category", isEqualTo: categoryId)
         .get()
-        .then((querySnap) =>  querySnap.docs.map(
-          (docSnap) => Event.fromMap(docSnap.data())).toList()
-        );
+        .then((querySnap) => querySnap.docs
+            .map((docSnap) => Event.fromMap(docSnap.data()))
+            .toList());
   }
 }
 
@@ -43,6 +40,10 @@ class Document<T> {
   Future<void> upsert(Map data) {
     return ref.set(Map<String, dynamic>.from(data), SetOptions(merge: true));
   }
+
+  Future<void> update(Map data) {
+    return ref.update(Map<String, dynamic>.from(data));
+  }
 }
 
 class Collection<T> {
@@ -68,47 +69,5 @@ class Collection<T> {
 
     return snapshot.map((list) =>
         list.docs.map((doc) => Global.models[T](doc.data()) as T).toList());
-  }
-}
-
-class UserData<T> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final String collection;
-
-  UserData({required this.collection});
-
-  Stream<T> get documentStream {
-    return _auth.authStateChanges().switchMap((user) {
-      if (user != null) {
-        Document<T> doc = Document<T>(path: '$collection/${user.uid}');
-        var docStream = doc.streamData();
-        return docStream;
-      } else {
-        return Stream<T>.empty();
-      }
-    });
-  }
-
-  Future<T?> getDocument() async {
-    User? user = _auth.currentUser;
-
-    if (user != null) {
-      Document doc = Document<T>(path: '$collection/${user.uid}');
-      return doc.getData() as T;
-    } else {
-      return null;
-    }
-  }
-
-  Future<void> upsert(Map data) async {
-    User? user = _auth.currentUser;
-
-    if (user == null) {
-      throw Error();
-    }
-
-    Document<T> doc = Document(path: '$collection/${user.uid}');
-
-    return doc.ref.set(data);
   }
 }
