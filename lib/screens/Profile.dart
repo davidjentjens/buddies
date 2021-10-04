@@ -1,9 +1,9 @@
-import 'package:buddies/shared/Loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:buddies/services/Auth.dart';
+import '../shared/Loader.dart';
+import '../services/Auth.dart';
 
 class ProfileScreen extends StatelessWidget {
   final AuthService auth = AuthService();

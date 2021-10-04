@@ -3,7 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../screens/screens.dart';
+import '../screens/Events/Events.dart';
+import '../screens/Map.dart';
+import '../screens/About.dart';
 
 class NavController extends StatefulWidget {
   NavController({Key? key}) : super(key: key);

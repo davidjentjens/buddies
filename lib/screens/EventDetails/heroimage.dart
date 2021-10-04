@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/models.dart';
+import '../../models/Event.dart';
 
 class HeroImage extends StatelessWidget {
   const HeroImage({

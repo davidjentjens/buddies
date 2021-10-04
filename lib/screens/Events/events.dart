@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../services/services.dart';
-import '../../models/models.dart';
-import '../../widgets/widgets.dart';
-
+import '../../services/Database.dart';
+import '../../models/Event.dart';
+import '../../widgets/EventCard.dart';
 import 'CategoryGrid.dart';
 
 class EventScreen extends StatelessWidget {

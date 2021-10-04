@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import './models.dart';
+import 'UserDetails.dart';
 
 class Event {
   String id;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../widgets/widgets.dart';
-import '../../models/models.dart';
+import '../../widgets/EventIcon.dart';
+import '../../widgets/ExpandableText.dart';
+import '../../models/Event.dart';
 
 class EventHeader extends StatelessWidget {
   const EventHeader({

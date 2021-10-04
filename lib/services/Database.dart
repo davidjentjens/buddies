@@ -1,6 +1,6 @@
-import 'package:buddies/models/Event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../models/Event.dart';
 import 'Globals.dart';
 
 class DatabaseService {

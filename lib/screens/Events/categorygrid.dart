@@ -1,9 +1,9 @@
-import 'package:buddies/screens/Category.dart';
 import 'package:flutter/material.dart';
 
-import '../../services/services.dart';
-import '../../models/models.dart';
-import '../../widgets/widgets.dart';
+import '../Category.dart';
+import '../../services/Database.dart';
+import '../../models/Category.dart';
+import '../../widgets/EventIcon.dart';
 
 class CategoryGrid extends StatelessWidget {
   const CategoryGrid({

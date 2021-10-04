@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../services/Database.dart';
 import '../../shared/Loader.dart';
-import '../../models/models.dart';
+import '../../models/Event.dart';
 
 import 'HeroImage.dart';
 import 'ParticipateButton.dart';

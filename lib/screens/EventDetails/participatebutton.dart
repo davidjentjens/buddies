@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../models/models.dart';
+import '../../models/Event.dart';
 import '../../shared/Loader.dart';
 import '../../services/Database.dart';
 

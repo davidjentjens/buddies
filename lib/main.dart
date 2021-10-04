@@ -7,10 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-import 'screens/screens.dart';
-import 'shared/shared.dart';
-import 'services/services.dart';
-
+import 'screens/About.dart';
+import 'screens/Events/Events.dart';
+import 'screens/Login.dart';
+import 'screens/Map.dart';
+import 'screens/Profile.dart';
+import 'services/Auth.dart';
+import 'shared/NavController.dart';
 import 'AppTheme.dart';
 
 Future<void> main() async {
@@ -28,10 +31,6 @@ class MyApp extends StatelessWidget {
         StreamProvider<User?>.value(
           initialData: null,
           value: AuthService().user,
-        ),
-        StreamProvider<Report?>.value(
-          initialData: Report(topics: [], total: 0, uid: ''),
-          value: Global.reportRef.documentStream,
         ),
       ],
       child: MaterialApp(

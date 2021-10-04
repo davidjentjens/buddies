@@ -1,8 +1,9 @@
-import 'package:buddies/models/Category.dart';
-import 'package:buddies/models/Event.dart';
-import 'package:buddies/services/services.dart';
-import 'package:buddies/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+
+import '../models/Category.dart';
+import '../models/Event.dart';
+import '../services/Database.dart';
+import '../widgets/EventCard.dart';
 
 class CategoryScreen extends StatelessWidget {
   final Category category;
