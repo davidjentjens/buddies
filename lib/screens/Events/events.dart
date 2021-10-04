@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../services/Database.dart';
+import '../../services/Database/Collection.dart';
 import '../../models/Event.dart';
 import '../../widgets/EventCard.dart';
 import 'CategoryGrid.dart';

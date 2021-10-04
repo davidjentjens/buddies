@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'Database.dart';
+import 'Database/Document.dart';
 
 class UserData<T> {
   final FirebaseAuth _auth = FirebaseAuth.instance;

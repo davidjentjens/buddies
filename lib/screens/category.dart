@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/Category.dart';
 import '../models/Event.dart';
-import '../services/Database.dart';
+import '../services/Database/DatabaseService.dart';
 import '../widgets/EventCard.dart';
 
 class CategoryScreen extends StatelessWidget {

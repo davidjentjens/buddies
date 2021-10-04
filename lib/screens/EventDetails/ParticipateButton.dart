@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../models/Event.dart';
 import '../../shared/Loader.dart';
-import '../../services/Database.dart';
+import '../../services/Database/Document.dart';
 
 class ParticipateButton extends StatefulWidget {
   final Event event;

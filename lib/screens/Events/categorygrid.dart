@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Category.dart';
-import '../../services/Database.dart';
+import '../../services/Database/Collection.dart';
 import '../../models/Category.dart';
 import '../../widgets/EventIcon.dart';
 
