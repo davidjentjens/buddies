@@ -8,9 +8,10 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [x] Modelagem de dados
 - [ ] Tela de eventos (com eventos mockados criados direto no banco)
   - [x] Tela de detalhes o evento
-  - [ ] Listagem de eventos
+  - [x] Listagem de eventos
   - [ ] Busca simples
-- [ ] Tela de próximos eventos (com dados mockados)
+- [x] Tela de próximos eventos (~~com dados mockados~~ com dados dinâmicos)
+- [x] Participação simples em eventos
 
 ## Funcionalidades para a G2
 - [ ] Criação de eventos

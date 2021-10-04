@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../screens/Events/Events.dart';
 import '../screens/Map.dart';
-import '../screens/About.dart';
+import '../screens/Agenda.dart';
 
 class NavController extends StatefulWidget {
   NavController({Key? key}) : super(key: key);
@@ -20,13 +20,13 @@ class _NavControllerState extends State<NavController> {
   static const List<Widget> _screens = [
     EventScreen(),
     MapScreen(),
-    AboutScreen()
+    AgendaScreen()
   ];
 
   static const List<String> _screenTitles = [
     "Pesquisar Eventos",
     "Buddies perto de você",
-    "Seus eventos"
+    "Seus próximos eventos"
   ];
 
   void _onItemTapped(int index) {

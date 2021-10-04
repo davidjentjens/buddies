@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-import 'screens/About.dart';
+import 'screens/Agenda.dart';
 import 'screens/Events/Events.dart';
 import 'screens/Login.dart';
 import 'screens/Map.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           '/events': (context) => EventScreen(),
           '/map': (context) => MapScreen(),
           '/profile': (context) => ProfileScreen(),
-          '/about': (context) => AboutScreen(),
+          '/agenda': (context) => AgendaScreen(),
         },
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
