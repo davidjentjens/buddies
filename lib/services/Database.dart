@@ -1,7 +1,7 @@
-import 'package:buddies/models/event.dart';
+import 'package:buddies/models/Event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import './globals.dart';
+import 'Globals.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;

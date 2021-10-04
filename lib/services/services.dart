@@ -1,4 +1,4 @@
-export 'auth.dart';
-export 'db.dart';
-export 'models.dart';
-export 'globals.dart';
+export 'Auth.dart';
+export 'Database.dart';
+export 'Models.dart';
+export 'Globals.dart';

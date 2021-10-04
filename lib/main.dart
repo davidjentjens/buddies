@@ -11,7 +11,7 @@ import 'screens/screens.dart';
 import 'shared/shared.dart';
 import 'services/services.dart';
 
-import './apptheme.dart';
+import 'AppTheme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

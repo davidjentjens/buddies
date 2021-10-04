@@ -1,3 +1,3 @@
-export 'eventcard.dart';
-export 'eventicon.dart';
-export 'expandabletext.dart';
+export 'EventCard.dart';
+export 'EventIcon.dart';
+export 'ExpandableText.dart';

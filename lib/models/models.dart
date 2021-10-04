@@ -1,3 +1,3 @@
-export 'userdetails.dart';
-export 'event.dart';
-export 'category.dart';
+export 'UserDetails.dart';
+export 'Event.dart';
+export 'Category.dart';

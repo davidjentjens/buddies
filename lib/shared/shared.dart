@@ -1,4 +1,4 @@
-export 'bottom_nav.dart';
-export 'nav_controller.dart';
+export 'BottomNav.dart';
+export 'NavController.dart';
 //export 'progress_bar.dart';
-export 'loader.dart';
+export 'Loader.dart';

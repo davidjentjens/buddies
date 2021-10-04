@@ -1,4 +1,4 @@
-import 'package:buddies/shared/loader.dart';
+import 'package:buddies/shared/Loader.dart';
 import 'package:flutter/material.dart';
 import '../services/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

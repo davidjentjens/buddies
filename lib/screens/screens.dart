@@ -1,7 +1,7 @@
-export 'login.dart';
-export 'about.dart';
-export 'profile.dart';
-export 'map.dart';
+export 'Login.dart';
+export 'About.dart';
+export 'Profile.dart';
+export 'Map.dart';
 
-export 'Events/events.dart';
-export 'EventDetails/eventdetails.dart';
+export 'Events/Events.dart';
+export 'EventDetails/EventDetails.dart';
