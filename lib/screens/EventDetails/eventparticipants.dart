@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 import '../../models/models.dart';
@@ -16,8 +14,8 @@ class EventParticipants extends StatelessWidget {
       padding: EdgeInsets.only(
         left: 22,
         right: 22,
-        bottom: 22,
-        top: 14,
+        top: 22,
+        bottom: 55,
       ),
       child: Column(
         children: event.participants
@@ -50,12 +48,19 @@ class EventParticipants extends StatelessWidget {
                                   fontWeight: FontWeight.w600, fontSize: 20.0),
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                //Icon,
-                                Text("4.6",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16.0))
+                                Icon(
+                                  Icons.star_rate,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  "4.6",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16.0),
+                                )
                               ],
                             )
                           ])

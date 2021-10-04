@@ -16,8 +16,8 @@ class EventHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: 22,
-        right: 22,
+        left: 18,
+        right: 18,
         bottom: 22,
         top: 14,
       ),
@@ -44,16 +44,11 @@ class EventHeader extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 12,
+            height: 10,
           ),
           ExpandableText(event.description),
-          // Text(
-          //   event.description,
-          //   style: Theme.of(context).textTheme.bodyText1,
-          //   textAlign: TextAlign.justify,
-          // ),
           SizedBox(
-            height: 16,
+            height: 12,
           ),
           Text(
             "O evento ocorrerá dia ${DateFormat.MMMMd('pt_BR').add_jm().format(event.startTime.toDate())}",

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../services/db.dart';
+import '../../shared/loader.dart';
 import '../../models/models.dart';
 
+import './heroimage.dart';
+import './participatebutton.dart';
 import './eventheader.dart';
 import './eventmap.dart';
 import './eventparticipants.dart';
@@ -13,48 +17,38 @@ class EventDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   backgroundColor: Color(0x00000000),
-      //   elevation: 0,
-      // ),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            new SliverAppBar(
-              floating: true,
-              pinned: true,
-              flexibleSpace: Hero(
-                tag: event.photoUrl,
-                child: Row(children: [
-                  Expanded(
-                    child: Image(
-                      image: NetworkImage(event.photoUrl),
-                      fit: BoxFit.fitWidth,
-                      height: 250,
-                    ),
-                  ),
-                ]),
-              ),
-              expandedHeight: 200,
-              backgroundColor: Color(0x00000000),
-              elevation: 0,
+    return StreamBuilder(
+      stream: Document<Event>(path: '/events/${event.id}').streamData(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            bottomSheet: ParticipateButton(
+              event: snapshot.data,
             ),
-          ];
-        },
-        body: MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          child: ListView(
-            children: [
-              EventHeader(event: event),
-              EventMap(event: event),
-              EventParticipants(event: event)
-            ],
-          ),
-        ),
-      ),
+            body: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                  HeroImage(event: snapshot.data),
+                ];
+              },
+              body: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: ListView(
+                  children: [
+                    EventHeader(event: snapshot.data),
+                    EventMap(event: snapshot.data),
+                    EventParticipants(event: snapshot.data)
+                  ],
+                ),
+              ),
+            ),
+          );
+        } else {
+          return LoadingScreen();
+        }
+      },
     );
   }
 }

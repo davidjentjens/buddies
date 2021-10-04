@@ -14,28 +14,27 @@ class _ExpandableTextState extends State<ExpandableText> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           widget.text,
-          // softWrap: true,
           overflow: TextOverflow.ellipsis,
           maxLines: widget.isExpanded ? 100 : 3,
         ),
         TextButton(
-            onPressed: () {
-              setState(() {
-                widget.isExpanded = !widget.isExpanded;
-              });
-            },
-            child: Text(
-              widget.isExpanded ? "Ler menos" : "Ler mais",
-            ),
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.all(0),
-              textStyle: TextStyle(fontWeight: FontWeight.normal, height: 1),
-            ),
+          onPressed: () {
+            setState(() {
+              widget.isExpanded = !widget.isExpanded;
+            });
+          },
+          child: Text(
+            widget.isExpanded ? "Ler menos" : "Ler mais",
           ),
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.all(0),
+            textStyle: TextStyle(fontWeight: FontWeight.normal, height: 1),
+          ),
+        ),
       ],
     );
   }
