@@ -23,12 +23,6 @@ class _NavControllerState extends State<NavController> {
     AgendaScreen()
   ];
 
-  static const List<String> _screenTitles = [
-    "Pesquisar Eventos",
-    "Buddies perto de você",
-    "Seus próximos eventos"
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -48,28 +42,6 @@ class _NavControllerState extends State<NavController> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text(
-          _screenTitles.elementAt(_selectedIndex),
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        actions: [
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/profile');
-                },
-                child: CircleAvatar(
-                  backgroundImage: user.photoURL != null
-                      ? NetworkImage(user.photoURL!)
-                      : AssetImage("assets/avatar_placeholder.jpg")
-                          as ImageProvider,
-                ),
-              ))
-        ],
-      ),
       body: _screens.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: [

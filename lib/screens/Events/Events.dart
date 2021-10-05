@@ -1,3 +1,4 @@
+import 'package:buddies/widgets/AvatarButton.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/Database/Collection.dart';
@@ -11,6 +12,12 @@ class EventScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text("Pesquisar eventos",
+            style: Theme.of(context).textTheme.headline6),
+        actions: [AvatarButton()],
+      ),
       body: StreamBuilder<List<Event>>(
         stream: Collection<Event>(path: '/events').streamData(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
