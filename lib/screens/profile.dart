@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../shared/Loader.dart';
+import '../widgets/Loader.dart';
 import '../services/Auth.dart';
 
 class ProfileScreen extends StatelessWidget {

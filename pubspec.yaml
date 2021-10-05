@@ -54,6 +54,12 @@ dependencies:
   # Toast package
   fluttertoast: ^8.0.8
 
+  # Algolia wrapper for its REST API
+  algolia: ^1.0.1
+
+  # Package to use a .env file
+  flutter_dotenv: ^5.0.2
+
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
   flutter_test:
@@ -77,6 +83,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/
     - assets/covers/
     - assets/congrats.gif

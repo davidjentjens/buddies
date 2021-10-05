@@ -18,6 +18,14 @@ class DatabaseService {
             .toList());
   }
 
+  Future<List<Event>> searchByTerm(String term) {
+    return _db.collection('events').get().then((querySnap) => querySnap.docs
+        .map((docSnap) => Event.fromMap(docSnap.data()))
+        .where((element) =>
+            element.title.toUpperCase().contains(term.toUpperCase()))
+        .toList());
+  }
+
   Stream<List<Event>> getUserFutureEvents(User user) {
     return _db
         .collection('events')

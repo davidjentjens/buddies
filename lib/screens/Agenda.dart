@@ -6,7 +6,7 @@ import '../services/Database/DatabaseService.dart';
 import '../widgets/AvatarButton.dart';
 import '../widgets/EventCard.dart';
 import '../models/Event.dart';
-import '../shared/Loader.dart';
+import '../widgets/Loader.dart';
 
 class AgendaScreen extends StatelessWidget {
   const AgendaScreen({Key? key}) : super(key: key);

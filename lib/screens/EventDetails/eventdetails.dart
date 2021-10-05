@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../services/Database/Document.dart';
-import '../../shared/Loader.dart';
+import '../../widgets/Loader.dart';
 import '../../models/Event.dart';
 
 import 'HeroImage.dart';
@@ -11,14 +11,14 @@ import 'EventMap.dart';
 import 'EventParticipants.dart';
 
 class EventDetailScreen extends StatelessWidget {
-  final Event event;
+  final String eventId;
 
-  const EventDetailScreen({Key? key, required this.event}) : super(key: key);
+  const EventDetailScreen({Key? key, required this.eventId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Document<Event>(path: '/events/${event.id}').streamData(),
+      stream: Document<Event>(path: '/events/$eventId').streamData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Scaffold(

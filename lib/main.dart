@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'screens/Agenda.dart';
 import 'screens/Events/Events.dart';
@@ -18,6 +19,7 @@ import 'AppTheme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await initializeDateFormatting('pt_BR', null);
   await Firebase.initializeApp();
   runApp(MyApp());

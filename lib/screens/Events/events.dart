@@ -1,38 +1,100 @@
-import 'package:buddies/widgets/AvatarButton.dart';
+import 'dart:async';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:algolia/algolia.dart';
+import 'package:buddies/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 
-import '../../services/Database/Collection.dart';
-import '../../models/Event.dart';
-import '../../widgets/EventCard.dart';
-import 'CategoryGrid.dart';
+import '../../widgets/AvatarButton.dart';
+import 'EventSearchResults.dart';
+import 'EventCatalog.dart';
 
-class EventScreen extends StatelessWidget {
+class EventScreen extends StatefulWidget {
   const EventScreen({Key? key}) : super(key: key);
+
+  @override
+  _EventScreenState createState() => _EventScreenState();
+}
+
+class _EventScreenState extends State<EventScreen> {
+  final Algolia _algolia = Algolia.init(
+    applicationId: dotenv.env['ALGOLIA_APPLICATION_ID'] ?? "",
+    apiKey: dotenv.env['ALGOLIA_API_SEARCH_KEY'] ?? "",
+  );
+
+  Widget _appBarTitle = Text("Pesquisar Eventos");
+  Icon _searchIcon = Icon(Icons.search);
+
+  bool _searching = false;
+  List<AlgoliaObjectSnapshot> _searchResults = [];
+
+  Timer? searchOnStoppedTyping;
+
+  void _search(String searchTerm) async {
+    setState(() {
+      _searching = true;
+    });
+
+    AlgoliaQuery query = _algolia.instance.index('buddies_eventsearch');
+    query = query.query(searchTerm);
+
+    _searchResults = (await query.getObjects()).hits;
+
+    setState(() {
+      _searching = false;
+    });
+  }
+
+  void _onChangeHandler(String value) {
+    if (value.isEmpty) {
+      print("Empty search");
+      return;
+    }
+
+    const duration = Duration(milliseconds: 500);
+    if (searchOnStoppedTyping != null) {
+      setState(() => searchOnStoppedTyping?.cancel());
+    }
+    setState(() =>
+        searchOnStoppedTyping = new Timer(duration, () => _search(value)));
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = Icon(Icons.close);
+        this._appBarTitle = TextField(
+          onChanged: _onChangeHandler,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            hintText: 'Busque por um evento...',
+          ),
+        );
+      } else {
+        this._searchIcon = Icon(Icons.search);
+        this._appBarTitle = Text("Pesquisar Eventos");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Pesquisar eventos",
-            style: Theme.of(context).textTheme.headline6),
+        title: _appBarTitle,
+        leading: MaterialButton(onPressed: _searchPressed, child: _searchIcon),
         actions: [AvatarButton()],
       ),
-      body: StreamBuilder<List<Event>>(
-        stream: Collection<Event>(path: '/events').streamData(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return ListView(
-              children: [
-                EventCard(event: snapshot.data[1]),
-                CategoryGrid(),
-              ],
-            );
-          } else {
-            return CircularProgressIndicator();
-          }
-        },
-      ),
+      body: _searching
+          ? LoadingScreen()
+          : this._searchIcon.icon == Icons.search
+              ? EventCatalog()
+              : EventSearchResults(searchResult: _searchResults),
     );
   }
 }

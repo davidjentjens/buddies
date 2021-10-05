@@ -24,3 +24,6 @@ doc/api/
 
 #iOS
 .DS_Store
+
+# Enviroment Variables
+*.env
