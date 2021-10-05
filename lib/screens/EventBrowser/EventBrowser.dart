@@ -9,14 +9,14 @@ import '../../widgets/AvatarButton.dart';
 import 'EventSearchResults.dart';
 import 'EventCatalog.dart';
 
-class EventScreen extends StatefulWidget {
-  const EventScreen({Key? key}) : super(key: key);
+class EventBrowserScreen extends StatefulWidget {
+  const EventBrowserScreen({Key? key}) : super(key: key);
 
   @override
-  _EventScreenState createState() => _EventScreenState();
+  _EventBrowserScreenState createState() => _EventBrowserScreenState();
 }
 
-class _EventScreenState extends State<EventScreen> {
+class _EventBrowserScreenState extends State<EventBrowserScreen> {
   final Algolia _algolia = Algolia.init(
     applicationId: dotenv.env['ALGOLIA_APPLICATION_ID'] ?? "",
     apiKey: dotenv.env['ALGOLIA_API_SEARCH_KEY'] ?? "",

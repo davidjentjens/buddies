@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../screens/Events/Events.dart';
+import '../screens/EventBrowser/EventBrowser.dart';
 import '../screens/Map.dart';
 import '../screens/Agenda.dart';
 
@@ -18,7 +18,7 @@ class _NavControllerState extends State<NavController> {
   int _selectedIndex = 0;
 
   static const List<Widget> _screens = [
-    EventScreen(),
+    EventBrowserScreen(),
     MapScreen(),
     AgendaScreen()
   ];

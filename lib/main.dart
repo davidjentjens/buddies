@@ -9,7 +9,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'screens/Agenda.dart';
-import 'screens/Events/Events.dart';
+import 'screens/EventBrowser/EventBrowser.dart';
 import 'screens/Login.dart';
 import 'screens/Map.dart';
 import 'screens/Profile.dart';
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => LoginScreen(),
           '/home': (context) => NavController(),
-          '/events': (context) => EventScreen(),
+          '/events': (context) => EventBrowserScreen(),
           '/map': (context) => MapScreen(),
           '/profile': (context) => ProfileScreen(),
           '/agenda': (context) => AgendaScreen(),
