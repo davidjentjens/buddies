@@ -6,10 +6,10 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 ## Funcionalidades para a G1 (06/10/2021)
 - [x] Tela de mapa (puro, apenas com navegação)
 - [x] Modelagem de dados
-- [ ] Tela de eventos (com eventos mockados criados direto no banco)
+- [x] Tela de eventos (com eventos mockados criados direto no banco)
   - [x] Tela de detalhes o evento
   - [x] Listagem de eventos
-  - [ ] Busca simples
+  - [x] Busca ~~simples~~ completa
 - [x] Tela de próximos eventos (~~com dados mockados~~ com dados dinâmicos)
 - [x] Participação simples em eventos
 
