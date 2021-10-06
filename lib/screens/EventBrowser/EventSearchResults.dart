@@ -42,7 +42,7 @@ class EventSearchResults extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(height: 16)
+                    SizedBox(height: 20)
                   ],
                 ))
             .toList());
