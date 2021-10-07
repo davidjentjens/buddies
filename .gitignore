@@ -27,3 +27,9 @@ doc/api/
 
 # Enviroment Variables
 *.env
+
+# Temporary sensitive data
+GoogleService-Info.plist
+google-services.json
+AppDelegate.swift
+AndroidManifest.xml
