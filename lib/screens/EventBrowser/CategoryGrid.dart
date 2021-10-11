@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../Category.dart';
 import '../../services/Database/Collection.dart';
 import '../../models/Category.dart';
-import '../../widgets/EventIcon.dart';
 
 class CategoryGrid extends StatelessWidget {
   const CategoryGrid({
@@ -13,22 +12,46 @@ class CategoryGrid extends StatelessWidget {
   _categoryList(BuildContext context, List<Category> categories) {
     return categories
         .map(
-          (category) => Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(
+          (category) => ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Card(
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) =>
                           CategoryScreen(category: category),
                     ),
                   );
-              },
-              child: EventIcon(
-                eventType: category.id,
-                color: Theme.of(context).primaryColor,
+                },
+                child: Stack(fit: StackFit.expand, children: [
+                  ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      Colors.grey,
+                      BlendMode.darken,
+                    ),
+                    child: ColorFiltered(
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).secondaryHeaderColor,
+                        BlendMode.colorBurn,
+                      ),
+                      child: Image(
+                        image: NetworkImage(category.images[0]),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      category.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                        fontSize: 32,
+                      ),
+                    ),
+                  )
+                ]),
               ),
             ),
           ),
@@ -50,7 +73,7 @@ class CategoryGrid extends StatelessWidget {
                 shrinkWrap: true,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 10,
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 children: _categoryList(context, snapshot.data),
               ),
             ),

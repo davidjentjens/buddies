@@ -12,24 +12,22 @@ class CategoryScreen extends StatelessWidget {
 
   _eventsList(BuildContext context, List<Event>? events) {
     if (events == null || events.isEmpty) {
-      return [Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Text(
-          "Não encontramos eventos cadastrados nesta categoria :(",
-          textAlign: TextAlign.center
-        ),
-      )];
+      return [
+        Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Text("Não encontramos eventos cadastrados nesta categoria :(",
+              textAlign: TextAlign.center),
+        )
+      ];
     }
 
-    return events
-        .map((event) => EventCard(event: event))
-        .toList();
+    return events.map((event) => EventCard(event: event)).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(category.title)),
+      appBar: AppBar(title: Text("Eventos de ${category.title}")),
       body: FutureBuilder(
           future: DatabaseService().getEventsForCategory(category.id),
           builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
