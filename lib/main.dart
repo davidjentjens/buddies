@@ -8,6 +8,7 @@ import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'screens/EventManager/EventManager.dart';
 import 'screens/Agenda.dart';
 import 'screens/EventBrowser/EventBrowser.dart';
 import 'screens/Login.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           '/map': (context) => MapScreen(),
           '/profile': (context) => ProfileScreen(),
           '/agenda': (context) => AgendaScreen(),
+          '/manage': (context) => EventManager(),
         },
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,

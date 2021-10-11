@@ -38,4 +38,14 @@ class DatabaseService {
             .map((docSnap) => Event.fromMap(docSnap.data()))
             .toList());
   }
+
+  Stream<List<Event>> getUserCreatedEvents(User user) {
+    return _db
+        .collection('events')
+        .where("creator.uid", isEqualTo: user.uid)
+        .snapshots()
+        .map((querySnap) => querySnap.docs
+            .map((docSnap) => Event.fromMap(docSnap.data()))
+            .toList());
+  }
 }

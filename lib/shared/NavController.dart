@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../screens/EventBrowser/EventBrowser.dart';
 import '../screens/Map.dart';
 import '../screens/Agenda.dart';
+import '../screens/EventManager/EventManager.dart';
 
 class NavController extends StatefulWidget {
   NavController({Key? key}) : super(key: key);
@@ -20,7 +21,8 @@ class _NavControllerState extends State<NavController> {
   static const List<Widget> _screens = [
     EventBrowserScreen(),
     MapScreen(),
-    AgendaScreen()
+    AgendaScreen(),
+    EventManager()
   ];
 
   void _onItemTapped(int index) {
@@ -44,6 +46,7 @@ class _NavControllerState extends State<NavController> {
     return Scaffold(
       body: _screens.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.home, size: 20),
@@ -56,6 +59,10 @@ class _NavControllerState extends State<NavController> {
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.calendar, size: 20),
             label: 'Agenda',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.userPlus, size: 20),
+            label: 'Eventos',
           ),
         ].toList(),
         currentIndex: _selectedIndex,
