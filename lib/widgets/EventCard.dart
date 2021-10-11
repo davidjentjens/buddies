@@ -17,6 +17,7 @@ class EventCard extends StatelessWidget {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Expanded(
             child: Card(
+              color: Color(0xFFfff4ed),
               margin: EdgeInsets.all(16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
