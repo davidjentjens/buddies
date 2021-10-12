@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:place_picker/entities/entities.dart';
 
 class EventFields extends StatefulWidget {
   final DateTime selectedDate;
   final Function selectDate;
 
+  final LocationResult selectedLocation;
+  final Function selectLocation;
 
   EventFields(
     this.selectedDate,
     this.selectDate,
+    this.selectedLocation,
+    this.selectLocation,
   ) : super();
 
   @override
@@ -54,10 +59,11 @@ class _EventFieldsState extends State<EventFields> {
           onTap: () async => {await this.widget.selectDate(context)},
         ),
         new ListTile(
-          leading: const Icon(Icons.group),
-          title: const Text('Contact group'),
-          subtitle: const Text('Not specified'),
-        )
+          leading: const Icon(Icons.near_me_outlined),
+          title: const Text('Localização'),
+          subtitle: Text(this.widget.selectedLocation.formattedAddress ?? ""),
+          onTap: () async => {await this.widget.selectLocation(context)},
+        ),
       ],
     );
   }

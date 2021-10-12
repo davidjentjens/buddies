@@ -50,6 +50,7 @@ dependencies:
   dio: ^4.0.0
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.0.8
+  place_picker: ^0.9.18
 
   # Toast package
   fluttertoast: ^8.0.8
