@@ -19,10 +19,11 @@ class _EventCreatorState extends State<EventCreator> {
   DateTime selectedDate = DateTime.now();
   Future<Null> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100));
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+    );
 
     if (pickedDate == null) {
       return;
