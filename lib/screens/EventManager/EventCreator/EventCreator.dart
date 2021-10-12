@@ -16,6 +16,30 @@ class _EventCreatorState extends State<EventCreator> {
 
   Widget? eventFields;
 
+  DateTime selectedDate = DateTime.now();
+  Future<Null> selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100));
+
+    if (pickedDate == null) {
+      return;
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (pickedDate != selectedDate && pickedTime != null) {
+      setState(() {
+        selectedDate = new DateTime(pickedDate.year, pickedDate.month,
+            pickedDate.day, pickedTime.hour, pickedTime.minute);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +58,8 @@ class _EventCreatorState extends State<EventCreator> {
         body: Form(
           key: _formKey,
           child: EventFields(
+            selectedDate,
+            this.selectDate,
           ),
         ),
       ),

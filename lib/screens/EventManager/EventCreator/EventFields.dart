@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EventFields extends StatefulWidget {
+  final DateTime selectedDate;
+  final Function selectDate;
 
 
   EventFields(
+    this.selectedDate,
+    this.selectDate,
   ) : super();
 
   @override
@@ -42,8 +47,11 @@ class _EventFieldsState extends State<EventFields> {
         ),
         new ListTile(
           leading: const Icon(Icons.today),
-          title: const Text('Birthday'),
-          subtitle: const Text('February 20, 1980'),
+          title: const Text('Data'),
+          subtitle: Text(
+            DateFormat.MMMMd('pt_BR').add_jm().format(this.widget.selectedDate),
+          ),
+          onTap: () async => {await this.widget.selectDate(context)},
         ),
         new ListTile(
           leading: const Icon(Icons.group),
