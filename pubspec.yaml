@@ -51,6 +51,7 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   google_maps_flutter: ^2.0.8
   place_picker: ^0.9.18
+  geolocator: ^7.7.0
 
   # Toast package
   fluttertoast: ^8.0.8

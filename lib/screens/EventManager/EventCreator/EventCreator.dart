@@ -2,6 +2,9 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:place_picker/place_picker.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../../../services/LocationService.dart';
 
 import './EventFields.dart';
 import './EventImage.dart';
@@ -18,8 +21,26 @@ class _EventCreatorState extends State<EventCreator> {
   final _formKey = GlobalKey<FormState>();
 
   Widget? eventFields;
-
   DateTime selectedDate = DateTime.now();
+  Position? initialPosition;
+  LocationResult selectedLocation = new LocationResult();
+
+  @override
+  void initState() {
+    super.initState();
+    setInitialPosition();
+  }
+
+  void setInitialPosition() async {
+    var position = await LocationService.determinePosition();
+
+    print(position);
+
+    setState(() {
+      initialPosition = position;
+    });
+  }
+
   Future<Null> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -45,8 +66,6 @@ class _EventCreatorState extends State<EventCreator> {
     }
   }
 
-  //LatLng(37.773972, -122.431297)
-  LocationResult selectedLocation = new LocationResult();
   Future<Null> selectLocation(BuildContext context) async {
     var apiKey = Platform.isAndroid
         ? dotenv.env['GOOGLE_MAPS_ANDROID_API_KEY']
@@ -60,7 +79,9 @@ class _EventCreatorState extends State<EventCreator> {
       MaterialPageRoute(
         builder: (context) => PlacePicker(
           apiKey ?? "",
-          displayLocation: selectedLocation.latLng,
+          displayLocation: initialPosition != null
+              ? LatLng(initialPosition!.latitude, initialPosition!.longitude)
+              : selectedLocation.latLng,
         ),
       ),
     );

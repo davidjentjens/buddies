@@ -1,5 +1,9 @@
+import 'package:buddies/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../services/LocationService.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -9,19 +13,37 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  static const _initialCameraPosition = CameraPosition(
-    target: LatLng(37.773972, -122.431297),
-    zoom: 11.5,
-  );
+  Position? initialPosition;
+
+  @override
+  void initState() {
+    super.initState();
+    setInitialPosition();
+  }
+
+  void setInitialPosition() async {
+    var position = await LocationService.determinePosition();
+
+    print(position);
+
+    setState(() {
+      initialPosition = position;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        initialCameraPosition: _initialCameraPosition,
-      ),
+      body: initialPosition != null
+          ? GoogleMap(
+              myLocationEnabled: true,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                    initialPosition!.latitude, initialPosition!.longitude),
+                zoom: 15,
+              ),
+            )
+          : LoadingScreen(),
     );
   }
 }
