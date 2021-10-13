@@ -38,15 +38,17 @@ class _EventFieldsState extends State<EventFields> {
               return null;
             },
             decoration: new InputDecoration(
-              hintText: "Título para o Evento",
+              hintText: "Título do Evento",
             ),
           ),
         ),
         new ListTile(
           leading: const Icon(Icons.description),
           title: new TextFormField(
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
             decoration: new InputDecoration(
-              hintText: "Descrição para o Evento",
+              hintText: "Descrição do Evento",
             ),
           ),
         ),
@@ -56,13 +58,19 @@ class _EventFieldsState extends State<EventFields> {
           subtitle: Text(
             DateFormat.MMMMd('pt_BR').add_jm().format(this.widget.selectedDate),
           ),
-          onTap: () async => {await this.widget.selectDate(context)},
+          onTap: () async => {
+            FocusManager.instance.primaryFocus?.unfocus(),
+            await this.widget.selectDate(context)
+          },
         ),
         new ListTile(
           leading: const Icon(Icons.near_me_outlined),
           title: const Text('Localização'),
           subtitle: Text(this.widget.selectedLocation.formattedAddress ?? ""),
-          onTap: () async => {await this.widget.selectLocation(context)},
+          onTap: () async => {
+            FocusManager.instance.primaryFocus?.unfocus(),
+            await this.widget.selectLocation(context)
+          },
         ),
       ],
     );

@@ -110,13 +110,16 @@ class _EventCreatorState extends State<EventCreator> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[EventImage()];
         },
-        body: Form(
-          key: _formKey,
-          child: EventFields(
-            selectedDate,
-            this.selectDate,
-            this.selectedLocation,
-            this.selectLocation,
+        body: new GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Form(
+            key: _formKey,
+            child: EventFields(
+              selectedDate,
+              this.selectDate,
+              this.selectedLocation,
+              this.selectLocation,
+            ),
           ),
         ),
       ),
