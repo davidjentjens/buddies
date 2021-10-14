@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:place_picker/place_picker.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../services/LocationService.dart';
 
@@ -44,7 +45,7 @@ class _EventCreatorState extends State<EventCreator> {
   }
 
   Future<Null> selectDate(BuildContext context, DateType datetype) async {
-    final DateTime? pickedDate = await showDatePicker(
+    DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: selectedInitialDate,
       firstDate: DateTime.now(),
@@ -55,7 +56,7 @@ class _EventCreatorState extends State<EventCreator> {
       return;
     }
 
-    final TimeOfDay? pickedTime = await showTimePicker(
+    TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
@@ -64,18 +65,41 @@ class _EventCreatorState extends State<EventCreator> {
       return;
     }
 
-    if (datetype == DateType.start && pickedDate != selectedInitialDate) {
+    pickedDate = new DateTime(pickedDate.year, pickedDate.month, pickedDate.day,
+        pickedTime.hour, pickedTime.minute);
+
+    if (datetype == DateType.start) {
+      if (pickedDate == selectedInitialDate ||
+          pickedDate.isAfter(selectedFinalDate)) {
+        Fluttertoast.showToast(
+            msg: "A data de ínicio deve ser antes da data de término",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red[300],
+            textColor: Colors.white,
+            fontSize: 20.0);
+        return;
+      }
       setState(() {
-        selectedInitialDate = new DateTime(pickedDate.year, pickedDate.month,
-            pickedDate.day, pickedTime.hour, pickedTime.minute);
+        selectedInitialDate = pickedDate!;
       });
     } else {
-      if (pickedDate != selectedFinalDate) {
-        setState(() {
-          selectedFinalDate = new DateTime(pickedDate.year, pickedDate.month,
-              pickedDate.day, pickedTime.hour, pickedTime.minute);
-        });
+      if (pickedDate == selectedFinalDate ||
+          pickedDate.isBefore(selectedInitialDate)) {
+        Fluttertoast.showToast(
+            msg: "A data de término deve ser depois da data de ínicio",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.TOP,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red[300],
+            textColor: Colors.white,
+            fontSize: 20.0);
+        return;
       }
+      setState(() {
+        selectedFinalDate = pickedDate!;
+      });
     }
   }
 
