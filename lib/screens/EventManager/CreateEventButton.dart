@@ -7,45 +7,20 @@ class CreateEventButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new SliverAppBar(
-      floating: true,
-      pinned: true,
-      flexibleSpace: Row(children: [
-        Expanded(
-          child: SizedBox(
-            width: double.infinity,
-            height: 60,
-            child: TextButton(
-              onPressed: () => {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => EventCreator(),
-                  ),
-                )
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Criar um novo evento',
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                  SizedBox(width: 20),
-                  Icon(Icons.add_box_outlined)
-                ],
-              ),
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.zero)),
-                  primary: Color(0xFF444444),
-                  backgroundColor: Theme.of(context).secondaryHeaderColor),
-            ),
+    return new FloatingActionButton.extended(
+      label: Text(
+        "Novo Evento",
+        style: TextStyle(color: Colors.white, fontSize: 16),
+      ),
+      icon: Icon(Icons.add),
+      backgroundColor: Theme.of(context).primaryColor,
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) => EventCreator(),
           ),
-        ),
-      ]),
-      toolbarHeight: 50,
-      collapsedHeight: 50,
-      backgroundColor: Color(0xFFFFFFFF),
+        );
+      },
     );
   }
 }

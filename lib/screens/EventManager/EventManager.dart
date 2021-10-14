@@ -17,12 +17,8 @@ class EventManager extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6),
         actions: [AvatarButton()],
       ),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[CreateEventButton()];
-        },
-        body: EventList(),
-      ),
+      floatingActionButton: CreateEventButton(),
+      body: EventList(),
     );
   }
 }
