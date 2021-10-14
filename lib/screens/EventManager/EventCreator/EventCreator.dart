@@ -10,6 +10,8 @@ import './EventFields.dart';
 import './EventImage.dart';
 import './CreateButton.dart';
 
+enum DateType { start, end }
+
 class EventCreator extends StatefulWidget {
   const EventCreator({Key? key}) : super(key: key);
 
@@ -21,7 +23,9 @@ class _EventCreatorState extends State<EventCreator> {
   final _formKey = GlobalKey<FormState>();
 
   Widget? eventFields;
-  DateTime selectedDate = DateTime.now();
+  DateTime selectedInitialDate = DateTime.now();
+  DateTime selectedFinalDate = DateTime.now();
+
   Position? initialPosition;
   LocationResult selectedLocation = new LocationResult();
 
@@ -41,10 +45,10 @@ class _EventCreatorState extends State<EventCreator> {
     });
   }
 
-  Future<Null> selectDate(BuildContext context) async {
+  Future<Null> selectDate(BuildContext context, DateType datetype) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: selectedInitialDate,
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
@@ -58,11 +62,22 @@ class _EventCreatorState extends State<EventCreator> {
       initialTime: TimeOfDay.now(),
     );
 
-    if (pickedDate != selectedDate && pickedTime != null) {
+    if (pickedTime == null) {
+      return;
+    }
+
+    if (datetype == DateType.start && pickedDate != selectedInitialDate) {
       setState(() {
-        selectedDate = new DateTime(pickedDate.year, pickedDate.month,
+        selectedInitialDate = new DateTime(pickedDate.year, pickedDate.month,
             pickedDate.day, pickedTime.hour, pickedTime.minute);
       });
+    } else {
+      if (pickedDate != selectedFinalDate) {
+        setState(() {
+          selectedFinalDate = new DateTime(pickedDate.year, pickedDate.month,
+              pickedDate.day, pickedTime.hour, pickedTime.minute);
+        });
+      }
     }
   }
 
@@ -115,7 +130,8 @@ class _EventCreatorState extends State<EventCreator> {
           child: Form(
             key: _formKey,
             child: EventFields(
-              selectedDate,
+              selectedInitialDate,
+              selectedFinalDate,
               this.selectDate,
               this.selectedLocation,
               this.selectLocation,

@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:place_picker/entities/entities.dart';
 
+import './EventCreator.dart';
+
 class EventFields extends StatefulWidget {
-  final DateTime selectedDate;
+  final DateTime selectedInitialDate;
+  final DateTime selectedFinalDate;
   final Function selectDate;
 
   final LocationResult selectedLocation;
   final Function selectLocation;
 
   EventFields(
-    this.selectedDate,
+    this.selectedInitialDate,
+    this.selectedFinalDate,
     this.selectDate,
     this.selectedLocation,
     this.selectLocation,
@@ -53,14 +57,36 @@ class _EventFieldsState extends State<EventFields> {
           ),
         ),
         new ListTile(
+          leading: const Icon(Icons.bookmarks),
+          title: const Text('Categoria'),
+          onTap: () async => {
+            FocusManager.instance.primaryFocus?.unfocus(),
+          },
+        ),
+        new ListTile(
           leading: const Icon(Icons.today),
-          title: const Text('Data'),
+          title: const Text('Dia e horário de início'),
           subtitle: Text(
-            DateFormat.MMMMd('pt_BR').add_jm().format(this.widget.selectedDate),
+            DateFormat.MMMMd('pt_BR')
+                .add_jm()
+                .format(this.widget.selectedInitialDate),
           ),
           onTap: () async => {
             FocusManager.instance.primaryFocus?.unfocus(),
-            await this.widget.selectDate(context)
+            await this.widget.selectDate(context, DateType.start)
+          },
+        ),
+        new ListTile(
+          leading: const Icon(Icons.today),
+          title: const Text('Dia e horário de término'),
+          subtitle: Text(
+            DateFormat.MMMMd('pt_BR')
+                .add_jm()
+                .format(this.widget.selectedFinalDate),
+          ),
+          onTap: () async => {
+            FocusManager.instance.primaryFocus?.unfocus(),
+            await this.widget.selectDate(context, DateType.end)
           },
         ),
         new ListTile(
