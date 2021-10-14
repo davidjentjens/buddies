@@ -38,8 +38,6 @@ class _EventCreatorState extends State<EventCreator> {
   void setInitialPosition() async {
     var position = await LocationService.determinePosition();
 
-    print(position);
-
     setState(() {
       initialPosition = position;
     });
@@ -100,8 +98,6 @@ class _EventCreatorState extends State<EventCreator> {
         ),
       ),
     );
-
-    print("LOCATION: ${result.toString()}");
 
     if (result != null) {
       setState(() {
