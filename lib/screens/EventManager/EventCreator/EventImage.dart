@@ -7,6 +7,7 @@ class EventImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new SliverAppBar(
       flexibleSpace: SizedBox(
+        height: 150,
         child: Stack(
           fit: StackFit.expand,
           alignment: Alignment.center,
@@ -14,7 +15,7 @@ class EventImage extends StatelessWidget {
             ColorFiltered(
               colorFilter: ColorFilter.mode(
                 Theme.of(context).secondaryHeaderColor,
-                BlendMode.color,
+                BlendMode.colorBurn,
               ),
               child: Image(
                 image: NetworkImage(
@@ -30,7 +31,7 @@ class EventImage extends StatelessWidget {
           ],
         ),
       ),
-      expandedHeight: 200,
+      expandedHeight: 150,
       backgroundColor: Color(0x00000000),
       elevation: 0,
     );
