@@ -24,29 +24,29 @@ class _EventCreatorState extends State<EventCreator> {
 
   Widget? eventFields;
   DateTime selectedInitialDate = DateTime.now();
-  DateTime selectedFinalDate = DateTime.now();
+  DateTime selectedFinalDate = DateTime.now().add(Duration(days: 30));
 
-  Position? initialPosition;
-  LocationResult selectedLocation = new LocationResult();
+  Position? userPosition;
+  LocationResult? selectedLocation;
 
   @override
   void initState() {
     super.initState();
-    setInitialPosition();
+    setuserPosition();
   }
 
-  void setInitialPosition() async {
+  void setuserPosition() async {
     var position = await LocationService.determinePosition();
 
     setState(() {
-      initialPosition = position;
+      this.userPosition = position;
     });
   }
 
   Future<Null> selectDate(BuildContext context, DateType datetype) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: selectedInitialDate,
+      initialDate: this.selectedInitialDate,
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
     );
@@ -90,7 +90,7 @@ class _EventCreatorState extends State<EventCreator> {
         return;
       }
       setState(() {
-        selectedInitialDate = pickedDate!;
+        this.selectedInitialDate = pickedDate!;
       });
     } else {
       if (pickedDate == selectedFinalDate ||
@@ -115,7 +115,7 @@ class _EventCreatorState extends State<EventCreator> {
         return;
       }
       setState(() {
-        selectedFinalDate = pickedDate!;
+        this.selectedFinalDate = pickedDate!;
       });
     }
   }
@@ -133,16 +133,16 @@ class _EventCreatorState extends State<EventCreator> {
       MaterialPageRoute(
         builder: (context) => PlacePicker(
           apiKey ?? "",
-          displayLocation: initialPosition != null
-              ? LatLng(initialPosition!.latitude, initialPosition!.longitude)
-              : selectedLocation.latLng,
+          displayLocation: userPosition != null
+              ? LatLng(userPosition!.latitude, userPosition!.longitude)
+              : new LocationResult().latLng,
         ),
       ),
     );
 
     if (result != null) {
       setState(() {
-        selectedLocation = result;
+        this.selectedLocation = result;
       });
     }
   }
@@ -156,7 +156,10 @@ class _EventCreatorState extends State<EventCreator> {
             style: Theme.of(context).textTheme.headline6),
       ),
       bottomSheet: CreateButton(
-        formKey: _formKey,
+        formKey: this._formKey,
+        selectedInitialDate: this.selectedInitialDate,
+        selectedFinalDate: this.selectedFinalDate,
+        selectedLocation: this.selectedLocation,
       ),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -167,8 +170,8 @@ class _EventCreatorState extends State<EventCreator> {
           child: Form(
             key: _formKey,
             child: EventFields(
-              selectedInitialDate,
-              selectedFinalDate,
+              this.selectedInitialDate,
+              this.selectedFinalDate,
               this.selectDate,
               this.selectedLocation,
               this.selectLocation,

@@ -9,7 +9,7 @@ class EventFields extends StatefulWidget {
   final DateTime selectedFinalDate;
   final Function selectDate;
 
-  final LocationResult selectedLocation;
+  final LocationResult? selectedLocation;
   final Function selectLocation;
 
   EventFields(
@@ -92,7 +92,9 @@ class _EventFieldsState extends State<EventFields> {
         new ListTile(
           leading: const Icon(Icons.near_me_outlined),
           title: const Text('Localização'),
-          subtitle: Text(this.widget.selectedLocation.formattedAddress ?? ""),
+          subtitle: Text(this.widget.selectedLocation != null
+              ? this.widget.selectedLocation!.formattedAddress ?? ""
+              : ""),
           onTap: () async => {
             FocusManager.instance.primaryFocus?.unfocus(),
             await this.widget.selectLocation(context)
