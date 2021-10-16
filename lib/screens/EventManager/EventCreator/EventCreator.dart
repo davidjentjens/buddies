@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:place_picker/place_picker.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../services/LocationService.dart';
 
@@ -71,14 +70,23 @@ class _EventCreatorState extends State<EventCreator> {
     if (datetype == DateType.start) {
       if (pickedDate == selectedInitialDate ||
           pickedDate.isAfter(selectedFinalDate)) {
-        Fluttertoast.showToast(
-            msg: "A data de ínicio deve ser antes da data de término",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.TOP,
-            timeInSecForIosWeb: 2,
-            backgroundColor: Colors.red[300],
-            textColor: Colors.white,
-            fontSize: 20.0);
+        ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+          content: Text(
+            'Erro: A data de ínicio deve ser antes da data de término.',
+            style: TextStyle(fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red[300],
+          margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height / 10,
+              right: 40,
+              left: 40),
+        ));
         return;
       }
       setState(() {
@@ -87,14 +95,23 @@ class _EventCreatorState extends State<EventCreator> {
     } else {
       if (pickedDate == selectedFinalDate ||
           pickedDate.isBefore(selectedInitialDate)) {
-        Fluttertoast.showToast(
-            msg: "A data de término deve ser depois da data de ínicio",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.TOP,
-            timeInSecForIosWeb: 2,
-            backgroundColor: Colors.red[300],
-            textColor: Colors.white,
-            fontSize: 20.0);
+        ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+          content: Text(
+            'Erro: A data de término deve ser depois da data de ínicio.',
+            style: TextStyle(fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          duration: Duration(seconds: 2),
+          backgroundColor: Colors.red[300],
+          margin: EdgeInsets.only(
+              bottom: MediaQuery.of(context).size.height / 8,
+              right: 40,
+              left: 40),
+        ));
         return;
       }
       setState(() {

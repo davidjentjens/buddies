@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../models/Event.dart';
 import '../../widgets/Loader.dart';
@@ -38,14 +37,21 @@ class _ParticipateButtonState extends State<ParticipateButton> {
       ])
     });
 
-    Fluttertoast.showToast(
-        msg: "Parabéns! Você está participando deste evento!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.green[300],
-        textColor: Colors.white,
-        fontSize: 20.0);
+    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+      content: Text(
+        'Parabéns! Você está participando deste evento!',
+        style: TextStyle(fontSize: 18),
+        textAlign: TextAlign.center,
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.green[300],
+      margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height / 8, right: 40, left: 40),
+    ));
   }
 
   void _userLeave(BuildContext context, User user) async {
@@ -60,14 +66,21 @@ class _ParticipateButtonState extends State<ParticipateButton> {
       ])
     });
 
-    Fluttertoast.showToast(
-        msg: "Você saiu deste evento. Esperamos vê-lo em breve!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 2,
-        backgroundColor: Colors.red[300],
-        textColor: Colors.white,
-        fontSize: 20.0);
+    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+      content: Text(
+        "Você saiu deste evento. Esperamos vê-lo em breve!",
+        style: TextStyle(fontSize: 18),
+        textAlign: TextAlign.center,
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.red[300],
+      margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height / 10, right: 40, left: 40),
+    ));
   }
 
   @override
