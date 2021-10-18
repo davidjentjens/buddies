@@ -48,7 +48,7 @@ class AgendaScreen extends StatelessWidget {
                 children: _eventsList(context, snapshot.data),
               );
             }
-            return CircularProgressIndicator();
+            return LoadingScreen();
           }),
     );
   }

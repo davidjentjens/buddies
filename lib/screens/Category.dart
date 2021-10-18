@@ -4,6 +4,7 @@ import '../models/Category.dart';
 import '../models/Event.dart';
 import '../services/Database/DatabaseService.dart';
 import '../widgets/EventCard.dart';
+import '../widgets/Loader.dart';
 
 class CategoryScreen extends StatelessWidget {
   final Category category;
@@ -36,7 +37,7 @@ class CategoryScreen extends StatelessWidget {
             if (snapshot.hasData) {
               return ListView(children: _eventsList(context, snapshot.data));
             } else {
-              return CircularProgressIndicator();
+              return LoadingScreen();
             }
           }),
     );

@@ -1,3 +1,4 @@
+import 'package:buddies/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 
 import '../Category.dart';
@@ -79,7 +80,7 @@ class CategoryGrid extends StatelessWidget {
             ),
           );
         } else {
-          return CircularProgressIndicator();
+          return LoadingScreen();
         }
       },
     );
