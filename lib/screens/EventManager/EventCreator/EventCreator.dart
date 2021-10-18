@@ -36,7 +36,7 @@ class _EventCreatorState extends State<EventCreator> {
   }
 
   void setuserPosition() async {
-    var position = await LocationService.determinePosition();
+    var position = await LocationService.getUserPosition();
 
     setState(() {
       this.userPosition = position;

@@ -22,7 +22,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void setInitialPosition() async {
-    var position = await LocationService.determinePosition();
+    var position = await LocationService.getUserPosition();
 
     setState(() {
       initialPosition = position;
