@@ -26,6 +26,7 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 ### Funcionalidades Extra (podem não ser implementadas)
 - [ ] Histórico de eventos participados e criados
 - [ ] Tratamento de erros para o usuário
+- [ ] Armazenamento dos interesses do usuário
 - [ ] Google Analytics
 
 ### Mudanças de Design adicionais
