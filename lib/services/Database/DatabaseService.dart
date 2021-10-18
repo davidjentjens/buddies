@@ -10,6 +10,7 @@ class DatabaseService {
     return _db
         .collection('events')
         .where("category", isEqualTo: categoryId)
+        .where("startTime", isGreaterThan: DateTime.now())
         .get()
         .then((querySnap) => querySnap.docs
             .map((docSnap) => Event.fromMap(docSnap.data()))

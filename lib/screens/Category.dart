@@ -1,3 +1,4 @@
+import 'package:buddies/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Category.dart';
@@ -16,7 +17,8 @@ class CategoryScreen extends StatelessWidget {
       return [
         Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Text("Não encontramos eventos cadastrados nesta categoria :(",
+          child: Text(
+              "Não encontramos eventos futuros cadastrados nesta categoria :(",
               textAlign: TextAlign.center),
         )
       ];
