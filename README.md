@@ -17,7 +17,7 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [x] Criação de eventos
 - [ ] Edição de eventos
 - [ ] Participação de eventos
-  - [ ] Confirmação de participação
+  - [x] Confirmação de participação
   - [ ] Formulário após o evento para informar quem realmente participou
   - [ ] Sistema de avaliação dos usuários baseada na participação dos eventos
 - [ ] Lógica para exibir eventos destacados

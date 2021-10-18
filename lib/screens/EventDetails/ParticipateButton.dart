@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,8 @@ import 'package:provider/provider.dart';
 import '../../models/Event.dart';
 import '../../widgets/Loader.dart';
 import '../../services/Database/Document.dart';
+
+import './ConfirmParticipation.dart';
 
 class ParticipateButton extends StatefulWidget {
   final Event event;
@@ -32,6 +32,16 @@ class _ParticipateButtonState extends State<ParticipateButton> {
   }
 
   void _userParticipate(BuildContext context, User user) async {
+    bool? confirmed = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ConfirmParticipation(event: this.widget.event)),
+    );
+
+    if (confirmed == null || !confirmed) {
+      return;
+    }
+
     var eventDoc = Document<Event>(path: 'events/${widget.event.id}');
     await eventDoc.update({
       "participants": FieldValue.arrayUnion([
@@ -61,6 +71,37 @@ class _ParticipateButtonState extends State<ParticipateButton> {
   }
 
   void _userLeave(BuildContext context, User user) async {
+    var eventDate = DateTime.fromMillisecondsSinceEpoch(
+        this.widget.event.startTime.millisecondsSinceEpoch);
+
+    if (eventDate.difference(DateTime.now()).inHours < 24) {
+      bool confirm = await showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text("Confirmação de Saída"),
+          content: Text(
+              "Este evento irá começar em menos de 24 horas. Se você sair agora, está concordando em receber uma pequena penalidade no seu ranking. Tem certeza que deseja sair?"),
+          actions: [
+            TextButton(
+              onPressed: () => {Navigator.pop(context, false)},
+              child: Text("Não"),
+            ),
+            TextButton(
+              onPressed: () => {Navigator.pop(context, true)},
+              child: Text("Sim"),
+            ),
+          ],
+        ),
+        barrierDismissible: false,
+      );
+
+      if (!confirm) {
+        return;
+      } else {
+        //TODO: Implementar redução de ranking
+      }
+    }
+
     var eventDoc = Document<Event>(path: 'events/${widget.event.id}');
     await eventDoc.update({
       "participants": FieldValue.arrayRemove([
