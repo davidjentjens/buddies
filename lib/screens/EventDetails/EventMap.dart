@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -13,7 +15,10 @@ class EventMap extends StatelessWidget {
 
   _initialCameraPosition(Event event) {
     return CameraPosition(
-      target: LatLng(event.location.latitude, event.location.longitude - 0.002),
+      target: LatLng(
+        event.point["geopoint"].latitude,
+        event.point["geopoint"].longitude,
+      ),
       zoom: 13.0,
     );
   }
@@ -22,7 +27,10 @@ class EventMap extends StatelessWidget {
     return Set<Marker>.of([
       Marker(
           markerId: MarkerId(event.id),
-          position: LatLng(event.location.latitude, event.location.longitude))
+          position: LatLng(
+            event.point["geopoint"].latitude,
+            event.point["geopoint"].longitude,
+          ))
     ]);
   }
 

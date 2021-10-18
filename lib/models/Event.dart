@@ -9,7 +9,7 @@ class Event {
   String photoUrl;
   Timestamp startTime;
   Timestamp endTime;
-  GeoPoint location;
+  dynamic point;
   UserDetails creator;
   List<UserDetails> participants;
   String category;
@@ -21,7 +21,7 @@ class Event {
       required this.photoUrl,
       required this.startTime,
       required this.endTime,
-      required this.location,
+      required this.point,
       required this.creator,
       required this.participants,
       required this.category});
@@ -34,7 +34,7 @@ class Event {
         photoUrl: data['photoUrl'],
         startTime: data['startTime'],
         endTime: data['endTime'],
-        location: data['location'],
+        point: data['point'],
         creator: UserDetails.fromMap(data['creator']),
         participants: (data['participants'] ?? [])
             .map<UserDetails>((data) => UserDetails.fromMap(data))

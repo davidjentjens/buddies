@@ -37,7 +37,7 @@ class EventList extends StatelessWidget {
         stream: DatabaseService().getUserCreatedEvents(user),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Column(
+            return ListView(
               children: _eventsList(context, snapshot.data),
             );
           }

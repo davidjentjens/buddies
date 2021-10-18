@@ -5,9 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../../services/LocationService.dart';
+import '../../../models/Category.dart';
 
 import './EventFields.dart';
 import './EventImage.dart';
+import './SelectCategory.dart';
 import './CreateButton.dart';
 
 enum DateType { start, end }
@@ -23,6 +25,12 @@ class _EventCreatorState extends State<EventCreator> {
   final _formKey = GlobalKey<FormState>();
 
   Widget? eventFields;
+
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+
+  Category? selectedCategory;
+
   DateTime selectedInitialDate = DateTime.now();
   DateTime selectedFinalDate = DateTime.now().add(Duration(days: 30));
 
@@ -33,6 +41,14 @@ class _EventCreatorState extends State<EventCreator> {
   void initState() {
     super.initState();
     setuserPosition();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
   }
 
   void setuserPosition() async {
@@ -147,29 +163,44 @@ class _EventCreatorState extends State<EventCreator> {
     }
   }
 
+  Future<Null> selectCategory(BuildContext context) async {
+    final Category? chosenCategory = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => SelectCategory(),
+      ),
+    );
+    if (chosenCategory != null) {
+      setState(() {
+        this.selectedCategory = chosenCategory;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text("Crie seu próprio Evento",
-            style: Theme.of(context).textTheme.headline6),
-      ),
       bottomSheet: CreateButton(
         formKey: this._formKey,
+        titleController: this.titleController,
+        descriptionController: this.descriptionController,
+        selectedCategory: this.selectedCategory,
         selectedInitialDate: this.selectedInitialDate,
         selectedFinalDate: this.selectedFinalDate,
         selectedLocation: this.selectedLocation,
       ),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[EventImage()];
+          return <Widget>[EventImage(selectedCategory: this.selectedCategory)];
         },
         body: new GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: Form(
             key: _formKey,
             child: EventFields(
+              this.titleController,
+              this.descriptionController,
+              this.selectedCategory,
+              this.selectCategory,
               this.selectedInitialDate,
               this.selectedFinalDate,
               this.selectDate,

@@ -48,4 +48,30 @@ class DatabaseService {
             .map((docSnap) => Event.fromMap(docSnap.data()))
             .toList());
   }
+
+  Future<Null> createEvent(Event event) async {
+    var newDocRef = _db.collection('events').doc();
+    newDocRef.set({
+      "id": newDocRef.id,
+      "title": event.title,
+      "description": event.description,
+      "photoUrl": event.photoUrl,
+      "startTime": event.startTime,
+      "endTime": event.endTime,
+      "point": event.point,
+      "creator": {
+        "uid": event.creator.uid,
+        "name": event.creator.name,
+        "photoUrl": event.creator.photoUrl
+      },
+      "participants": [
+        {
+          "uid": event.creator.uid,
+          "name": event.creator.name,
+          "photoUrl": event.creator.photoUrl
+        }
+      ],
+      "category": event.category
+    });
+  }
 }

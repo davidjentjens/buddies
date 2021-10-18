@@ -52,6 +52,7 @@ dependencies:
   google_maps_flutter: ^2.0.8
   place_picker: ^0.9.18
   geolocator: ^7.7.0
+  geoflutterfire: ^3.0.1
 
   # Algolia wrapper for its REST API
   algolia: ^1.0.1

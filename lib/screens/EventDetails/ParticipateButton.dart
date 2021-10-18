@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,10 @@ class ParticipateButton extends StatefulWidget {
 }
 
 class _ParticipateButtonState extends State<ParticipateButton> {
+  bool _eventIsPast() {
+    return DateTime.now().isAfter(this.widget.event.startTime.toDate());
+  }
+
   bool _userIsParticipating(User user) {
     var participants = widget.event.participants;
 
@@ -91,38 +97,55 @@ class _ParticipateButtonState extends State<ParticipateButton> {
       return Loader();
     }
 
-    return _userIsParticipating(user)
+    return _eventIsPast()
         ? SizedBox(
             width: double.infinity,
             height: 60,
             child: TextButton(
               child: Text(
-                'Sair deste evento',
+                'Este evento está fechado',
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
-              onPressed: () => _userLeave(context, user),
+              onPressed: () => {},
               style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.zero)),
                   primary: Colors.white,
-                  backgroundColor: Colors.red[300]),
+                  backgroundColor: Colors.grey[500]),
             ),
           )
-        : SizedBox(
-            width: double.infinity,
-            height: 60,
-            child: TextButton(
-              child: Text(
-                'Participar deste Evento',
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              onPressed: () => _userParticipate(context, user),
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.zero)),
-                  primary: Colors.white,
-                  backgroundColor: Theme.of(context).primaryColor),
-            ),
-          );
+        : _userIsParticipating(user)
+            ? SizedBox(
+                width: double.infinity,
+                height: 60,
+                child: TextButton(
+                  child: Text(
+                    'Sair deste evento',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  onPressed: () => _userLeave(context, user),
+                  style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.zero)),
+                      primary: Colors.white,
+                      backgroundColor: Colors.red[300]),
+                ),
+              )
+            : SizedBox(
+                width: double.infinity,
+                height: 60,
+                child: TextButton(
+                  child: Text(
+                    'Participar deste Evento',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  onPressed: () => _userParticipate(context, user),
+                  style: TextButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.zero)),
+                      primary: Colors.white,
+                      backgroundColor: Theme.of(context).primaryColor),
+                ),
+              );
   }
 }
