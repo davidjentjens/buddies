@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 
 import '../../models/Event.dart';
 
@@ -23,6 +25,29 @@ class DatabaseService {
         .where((element) =>
             element.title.toUpperCase().contains(term.toUpperCase()))
         .toList());
+  }
+
+  Stream<List<Event>> streamUserFeaturedEvents(Position userPosition) {
+    final geo = Geoflutterfire();
+    GeoFirePoint center = geo.point(
+      latitude: userPosition.latitude,
+      longitude: userPosition.longitude,
+    );
+
+    /*var queryRef = _db
+        .collection('events')
+        .where("startTime", isGreaterThan: DateTime.now())
+        .orderBy("startTime");*/
+
+    return geo
+        .collection(collectionRef: _db.collection('events'))
+        .within(center: center, radius: 30, field: 'point', strictMode: true)
+        .map((event) => event
+            .map((e) => Event.fromMap(e.data()!))
+            .where((event) =>
+                DateTime.now().millisecondsSinceEpoch <
+                event.startTime.millisecondsSinceEpoch)
+            .toList());
   }
 
   Stream<List<Event>> getUserFutureEvents(User user) {
@@ -60,7 +85,7 @@ class DatabaseService {
       "startTime": event.startTime,
       "endTime": event.endTime,
       "locationData": {
-        "formattedAdress": event.locationData.formattedAddress,
+        "formattedAddress": event.locationData.formattedAddress,
         "postalCode": event.locationData.postalCode,
         "latitude": event.locationData.latitude,
         "longitude": event.locationData.longitude,
