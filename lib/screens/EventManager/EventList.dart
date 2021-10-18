@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/Database/DatabaseService.dart';
-import '../../widgets/EventCard.dart';
+import '../../widgets/EditEventCard.dart';
 import '../../models/Event.dart';
 import '../../widgets/Loader.dart';
 
@@ -22,7 +22,7 @@ class EventList extends StatelessWidget {
       ];
     }
 
-    return events.map((event) => EventCard(event: event)).toList();
+    return events.map((event) => EditEventCard(event: event)).toList();
   }
 
   @override

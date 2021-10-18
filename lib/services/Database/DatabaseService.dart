@@ -81,4 +81,35 @@ class DatabaseService {
       "category": event.category
     });
   }
+
+  Future<Null> editEvent(Event event) async {
+    var docRef = _db.doc('events/${event.id}');
+    docRef.set({
+      "title": event.title,
+      "description": event.description,
+      "photoUrl": event.photoUrl,
+      "startTime": event.startTime,
+      "endTime": event.endTime,
+      "locationData": {
+        "formattedAdress": event.locationData.formattedAddress,
+        "postalCode": event.locationData.postalCode,
+        "latitude": event.locationData.latitude,
+        "longitude": event.locationData.longitude,
+      },
+      "point": event.point,
+      "creator": {
+        "uid": event.creator.uid,
+        "name": event.creator.name,
+        "photoUrl": event.creator.photoUrl
+      },
+      "participants": [
+        {
+          "uid": event.creator.uid,
+          "name": event.creator.name,
+          "photoUrl": event.creator.photoUrl
+        }
+      ],
+      "category": event.category
+    }, SetOptions(merge: true));
+  }
 }
