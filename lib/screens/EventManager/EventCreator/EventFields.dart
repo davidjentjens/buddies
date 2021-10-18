@@ -54,8 +54,8 @@ class _EventFieldsState extends State<EventFields> {
                   if (value == null || value.isEmpty) {
                     return "Por favor informe um título para o Evento";
                   }
-                  if (value.length < 10) {
-                    return "O título precisa ter pelo menos 10 caracteres";
+                  if (value.length < 5) {
+                    return "O título precisa ter pelo menos 5 caracteres";
                   }
                   if (value.length > 24) {
                     return "O título não pode ter mais do que 24 caracteres";
@@ -72,6 +72,15 @@ class _EventFieldsState extends State<EventFields> {
             leading: const Icon(Icons.description),
             title: new TextFormField(
               controller: this.widget.descriptionController,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "A descrição do Evento não pode estar vazia";
+                }
+                if (value.length < 10) {
+                  return "A descrição precisa ter pelo menos 10 caracteres";
+                }
+                return null;
+              },
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: new InputDecoration(
