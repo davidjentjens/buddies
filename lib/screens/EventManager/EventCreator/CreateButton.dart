@@ -1,4 +1,3 @@
-import 'package:buddies/models/UserDetails.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,8 @@ import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:buddies/services/Database/DatabaseService.dart';
 import 'package:provider/provider.dart';
 
+import '../../../models/LocationData.dart';
+import '../../../models/UserDetails.dart';
 import '../../../models/Event.dart';
 import '../../../models/Category.dart';
 import '../../../widgets/Loader.dart';
@@ -97,7 +98,7 @@ class CreateButton extends StatelessWidget {
     }
 
     final geo = Geoflutterfire();
-    GeoFirePoint selectedLocation = geo.point(
+    GeoFirePoint selectedPoint = geo.point(
         latitude: this.selectedLocation!.latLng!.latitude,
         longitude: this.selectedLocation!.latLng!.longitude);
 
@@ -107,6 +108,13 @@ class CreateButton extends StatelessWidget {
       photoUrl: user.photoURL ?? '',
     );
 
+    LocationData locationData = new LocationData(
+      formattedAddress: selectedLocation!.formattedAddress!,
+      latitude: selectedLocation!.latLng!.latitude,
+      longitude: selectedLocation!.latLng!.longitude,
+      postalCode: selectedLocation!.postalCode!,
+    );
+
     Event event = new Event(
       id: 'id',
       title: this.titleController.text,
@@ -114,7 +122,8 @@ class CreateButton extends StatelessWidget {
       photoUrl: (this.selectedCategory!.images..shuffle()).first,
       startTime: Timestamp.fromDate(this.selectedInitialDate),
       endTime: Timestamp.fromDate(this.selectedFinalDate),
-      point: selectedLocation.data,
+      locationData: locationData,
+      point: selectedPoint.data,
       creator: creatorUser,
       participants: [creatorUser],
       category: this.selectedCategory!.id,

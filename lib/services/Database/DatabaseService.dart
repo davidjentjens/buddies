@@ -59,6 +59,12 @@ class DatabaseService {
       "photoUrl": event.photoUrl,
       "startTime": event.startTime,
       "endTime": event.endTime,
+      "locationData": {
+        "formattedAdress": event.locationData.formattedAddress,
+        "postalCode": event.locationData.postalCode,
+        "latitude": event.locationData.latitude,
+        "longitude": event.locationData.longitude,
+      },
       "point": event.point,
       "creator": {
         "uid": event.creator.uid,

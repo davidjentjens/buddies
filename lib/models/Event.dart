@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import './LocationData.dart';
+
 import 'UserDetails.dart';
 
 class Event {
@@ -9,6 +11,7 @@ class Event {
   String photoUrl;
   Timestamp startTime;
   Timestamp endTime;
+  LocationData locationData;
   dynamic point;
   UserDetails creator;
   List<UserDetails> participants;
@@ -21,6 +24,7 @@ class Event {
       required this.photoUrl,
       required this.startTime,
       required this.endTime,
+      required this.locationData,
       required this.point,
       required this.creator,
       required this.participants,
@@ -34,6 +38,7 @@ class Event {
         photoUrl: data['photoUrl'],
         startTime: data['startTime'],
         endTime: data['endTime'],
+        locationData: LocationData.fromMap(data['locationData']),
         point: data['point'],
         creator: UserDetails.fromMap(data['creator']),
         participants: (data['participants'] ?? [])

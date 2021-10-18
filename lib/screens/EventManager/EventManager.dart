@@ -13,7 +13,7 @@ class EventManager extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text("Gerenciador de Eventos",
+        title: Text("Eventos criados por você",
             style: Theme.of(context).textTheme.headline6),
         actions: [AvatarButton()],
       ),
