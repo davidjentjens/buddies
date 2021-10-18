@@ -37,7 +37,7 @@ class SelectCategory extends StatelessWidget {
                         BlendMode.colorBurn,
                       ),
                       child: Image(
-                        image: NetworkImage((category.images..shuffle()).first),
+                        image: NetworkImage(category.mainImage),
                         fit: BoxFit.cover,
                       ),
                     ),

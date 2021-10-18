@@ -37,7 +37,7 @@ class CategoryGrid extends StatelessWidget {
                         BlendMode.colorBurn,
                       ),
                       child: Image(
-                        image: NetworkImage(category.images[0]),
+                        image: NetworkImage(category.mainImage),
                         fit: BoxFit.cover,
                       ),
                     ),

@@ -33,6 +33,7 @@ class EventImage extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            // TODO: Solução melhor para imagem do Evento?
             // Icon(
             //   Icons.camera_alt,
             //   color: Colors.white,
