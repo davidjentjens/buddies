@@ -12,7 +12,7 @@ import 'screens/EventManager/EventManager.dart';
 import 'screens/Agenda.dart';
 import 'screens/EventBrowser/EventBrowser.dart';
 import 'screens/Login.dart';
-import 'screens/Map.dart';
+import 'screens/Map/Map.dart';
 import 'screens/Profile.dart';
 import 'services/Auth.dart';
 import 'shared/NavController.dart';

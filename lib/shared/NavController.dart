@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../screens/EventBrowser/EventBrowser.dart';
-import '../screens/Map.dart';
+import '../screens/Map/Map.dart';
 import '../screens/Agenda.dart';
 import '../screens/EventManager/EventManager.dart';
 
