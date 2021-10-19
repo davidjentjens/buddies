@@ -17,32 +17,36 @@ class EventCatalog extends StatelessWidget {
       future: LocationService.getUserPosition(),
       builder: (BuildContext context, AsyncSnapshot futureSnapshot) {
         if (futureSnapshot.hasData) {
-          return StreamBuilder<List<Event>>(
-            stream:
-                DatabaseService().streamUserFeaturedEvents(futureSnapshot.data),
-            builder: (BuildContext context, AsyncSnapshot streamSnapshot) {
-              if (streamSnapshot.hasData) {
-                return Container(
-                  height: double.infinity,
-                  child: ListView(
-                    children: [
-                      streamSnapshot.data.length != 0
-                          ? EventCard(event: streamSnapshot.data[0])
-                          : SizedBox(
-                              height: 25,
-                            ),
-                      CategoryGrid(),
-                      SizedBox(
-                        height: 25,
-                      )
-                    ],
-                  ),
-                );
-              } else {
-                return LoadingScreen();
-              }
-            },
-          );
+          return LayoutBuilder(builder: (context, constrains) {
+            return StreamBuilder<List<Event>>(
+              stream: DatabaseService()
+                  .streamUserFeaturedEvents(futureSnapshot.data),
+              builder: (BuildContext context, AsyncSnapshot streamSnapshot) {
+                if (streamSnapshot.hasData) {
+                  return Container(
+                    height: double.infinity,
+                    child: ListView(
+                      children: [
+                        streamSnapshot.data.length != 0
+                            ? EventCard(event: streamSnapshot.data[0])
+                            : SizedBox(
+                                height: 25,
+                              ),
+                        Container(
+                            height: constrains.maxHeight,
+                            child: CategoryGrid()),
+                        SizedBox(
+                          height: 25,
+                        )
+                      ],
+                    ),
+                  );
+                } else {
+                  return LoadingScreen();
+                }
+              },
+            );
+          });
         } else {
           return LoadingScreen();
         }
