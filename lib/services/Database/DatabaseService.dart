@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../models/Event.dart';
 
@@ -27,11 +28,12 @@ class DatabaseService {
         .toList());
   }
 
-  Stream<List<Event>> streamUserFeaturedEvents(Position userPosition) {
+  Stream<List<Event>> streamUserFeaturedEvents(
+      {required LatLng userCoordinates, double radius = 30}) {
     final geo = Geoflutterfire();
     GeoFirePoint center = geo.point(
-      latitude: userPosition.latitude,
-      longitude: userPosition.longitude,
+      latitude: userCoordinates.latitude,
+      longitude: userCoordinates.longitude,
     );
 
     /*var queryRef = _db
@@ -41,7 +43,8 @@ class DatabaseService {
 
     return geo
         .collection(collectionRef: _db.collection('events'))
-        .within(center: center, radius: 30, field: 'point', strictMode: true)
+        .within(
+            center: center, radius: radius, field: 'point', strictMode: true)
         .map((event) => event
             .map((e) => Event.fromMap(e.data()!))
             .where((event) =>

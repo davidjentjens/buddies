@@ -1,5 +1,6 @@
 import 'package:buddies/services/LocationService.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../widgets/Loader.dart';
 import '../../services/Database/DatabaseService.dart';
@@ -19,8 +20,9 @@ class EventCatalog extends StatelessWidget {
         if (futureSnapshot.hasData) {
           return LayoutBuilder(builder: (context, constrains) {
             return StreamBuilder<List<Event>>(
-              stream: DatabaseService()
-                  .streamUserFeaturedEvents(futureSnapshot.data),
+              stream: DatabaseService().streamUserFeaturedEvents(
+                  userCoordinates: LatLng(futureSnapshot.data.latitude,
+                      futureSnapshot.data.longitude)),
               builder: (BuildContext context, AsyncSnapshot streamSnapshot) {
                 if (streamSnapshot.hasData) {
                   return Container(
