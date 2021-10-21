@@ -26,7 +26,6 @@ class EventCatalog extends StatelessWidget {
               builder: (BuildContext context, AsyncSnapshot streamSnapshot) {
                 if (streamSnapshot.hasData) {
                   return Container(
-                    height: double.infinity,
                     child: ListView(
                       children: [
                         streamSnapshot.data.length != 0

@@ -14,8 +14,8 @@ class MarkerList extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot futureSnapshot) {
         if (futureSnapshot.hasData) {
           return StreamBuilder(
-            stream:
-                DatabaseService().streamUserFeaturedEvents(futureSnapshot.data),
+            stream: DatabaseService()
+                .streamUserFeaturedEvents(userCoordinates: futureSnapshot.data),
             builder: (BuildContext context, AsyncSnapshot streamSnapshot) {
               if (streamSnapshot.hasData) {
                 return Container();

@@ -22,6 +22,10 @@ class EventIcon extends StatelessWidget {
         return Icons.directions_run_rounded;
       case 'VOLLEY':
         return Icons.sports_volleyball;
+      case 'TABLERPG':
+        return Icons.casino;
+      case 'SOCIAL':
+        return Icons.groups;
       case 'MISC':
         return Icons.ac_unit;
       default:
