@@ -60,6 +60,9 @@ dependencies:
   # Package to use a .env file
   flutter_dotenv: ^5.0.2
 
+  # Firebase notifications
+  firebase_messaging: ^10.0.9
+
 dev_dependencies:
   flutter_launcher_icons: ^0.9.2
   flutter_test:

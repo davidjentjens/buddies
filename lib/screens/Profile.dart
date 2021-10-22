@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../widgets/Loader.dart';
 import '../services/Auth.dart';
@@ -10,6 +11,12 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging.instance.getToken().then((value) {
+      String? token = value;
+      print(token);
+      print(token);
+    });
+
     var user = Provider.of<User?>(context);
 
     if (user == null) {
