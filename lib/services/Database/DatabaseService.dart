@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../models/Event.dart';
+import '../../models/Category.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -26,6 +26,18 @@ class DatabaseService {
         .where((element) =>
             element.title.toUpperCase().contains(term.toUpperCase()))
         .toList());
+  }
+
+  Stream<List<Category>> streamMostPopularCategories(
+      {required int categoryNum}) {
+    return _db
+        .collection('categories')
+        .orderBy('eventNum', descending: true)
+        .limit(categoryNum)
+        .snapshots()
+        .map((querySnap) => querySnap.docs
+            .map((docSnap) => Category.fromMap(docSnap.data()))
+            .toList());
   }
 
   Stream<List<Event>> streamUserFeaturedEvents(

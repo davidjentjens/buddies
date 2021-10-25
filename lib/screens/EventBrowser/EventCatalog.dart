@@ -1,4 +1,3 @@
-import 'package:buddies/services/LocationService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -6,6 +5,8 @@ import '../../widgets/Loader.dart';
 import '../../services/Database/DatabaseService.dart';
 import '../../models/Event.dart';
 import '../../widgets/EventCard.dart';
+import '../../screens/EventBrowser/CategoryPage.dart';
+import '../../services/LocationService.dart';
 
 import 'CategoryGrid.dart';
 
@@ -30,15 +31,39 @@ class EventCatalog extends StatelessWidget {
                       children: [
                         streamSnapshot.data.length != 0
                             ? EventCard(event: streamSnapshot.data[0])
-                            : SizedBox(
-                                height: 25,
-                              ),
+                            : SizedBox(height: 25),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 10, right: 18, left: 18, bottom: 15),
+                          child: Row(
+                            children: [
+                              Icon(Icons.bookmarks),
+                              SizedBox(width: 5),
+                              Text(
+                                "Categorias populares",
+                                style: Theme.of(context).textTheme.headline6,
+                              )
+                            ],
+                          ),
+                        ),
                         Container(
-                            height: constrains.maxHeight,
-                            child: CategoryGrid()),
+                          height: 374,
+                          child: CategoryGrid(popularCategoriesOnly: true),
+                        ),
+                        TextButton(
+                          onPressed: () => {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    CategoryPage(),
+                              ),
+                            ),
+                          },
+                          child: Text('Ver todas as categorias'),
+                        ),
                         SizedBox(
-                          height: 25,
-                        )
+                          height: 20,
+                        ),
                       ],
                     ),
                   );

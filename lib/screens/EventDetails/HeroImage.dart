@@ -29,6 +29,7 @@ class HeroImage extends StatelessWidget {
       ),
       expandedHeight: 200,
       backgroundColor: Color(0x00000000),
+      iconTheme: IconThemeData(color: Colors.white),
       elevation: 0,
     );
   }

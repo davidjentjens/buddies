@@ -1,3 +1,4 @@
+import 'package:buddies/services/Database/DatabaseService.dart';
 import 'package:buddies/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 
@@ -6,9 +7,10 @@ import '../../services/Database/Collection.dart';
 import '../../models/Category.dart';
 
 class CategoryGrid extends StatelessWidget {
-  const CategoryGrid({
-    Key? key,
-  }) : super(key: key);
+  final bool popularCategoriesOnly;
+
+  const CategoryGrid({Key? key, required this.popularCategoriesOnly})
+      : super(key: key);
 
   _categoryList(BuildContext context, List<Category> categories) {
     return categories
@@ -63,7 +65,9 @@ class CategoryGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: Collection<Category>(path: '/categories').streamData(),
+      stream: popularCategoriesOnly
+          ? DatabaseService().streamMostPopularCategories(categoryNum: 4)
+          : Collection<Category>(path: '/categories').streamData(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Container(
