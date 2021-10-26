@@ -54,7 +54,7 @@ class _EventEditorState extends State<EventEditor> {
       this.titleController.text = this.widget.event.title;
       this.descriptionController.text = this.widget.event.description;
 
-      //this.selectedCategory = this.widget.event.category;
+      this.selectedCategory = this.widget.event.categoryObject;
 
       this.selectedInitialDate = DateTime.fromMillisecondsSinceEpoch(
           this.widget.event.startTime.millisecondsSinceEpoch);

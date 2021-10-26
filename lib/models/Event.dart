@@ -1,3 +1,4 @@
+import 'package:buddies/models/Category.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import './LocationData.dart';
@@ -16,6 +17,7 @@ class Event {
   UserDetails creator;
   List<UserDetails> participants;
   String category;
+  Category? categoryObject;
 
   Event(
       {required this.id,
