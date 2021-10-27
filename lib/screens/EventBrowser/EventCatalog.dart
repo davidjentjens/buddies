@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../widgets/Loader.dart';
 import '../../services/Database/DatabaseService.dart';
+import '../../services/LocationService.dart';
 import '../../models/Event.dart';
+import '../../widgets/Loader.dart';
 import '../../widgets/EventCard.dart';
 import '../../screens/EventBrowser/CategoryPage.dart';
-import '../../services/LocationService.dart';
 
+import 'EventCarousel.dart';
 import 'CategoryGrid.dart';
 
 class EventCatalog extends StatelessWidget {
@@ -29,15 +31,19 @@ class EventCatalog extends StatelessWidget {
                   return Container(
                     child: ListView(
                       children: [
+                        //EventCard(event: streamSnapshot.data[0])
                         streamSnapshot.data.length != 0
-                            ? EventCard(event: streamSnapshot.data[0])
+                            ? EventCarousel(events: streamSnapshot.data)
                             : SizedBox(height: 25),
                         Padding(
                           padding: EdgeInsets.only(
                               top: 10, right: 18, left: 18, bottom: 15),
                           child: Row(
                             children: [
-                              Icon(Icons.bookmarks),
+                              Icon(
+                                Icons.bookmarks,
+                                color: Theme.of(context).primaryColor,
+                              ),
                               SizedBox(width: 5),
                               Text(
                                 "Categorias populares",
@@ -47,7 +53,7 @@ class EventCatalog extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          height: 374,
+                          height: 385,
                           child: CategoryGrid(popularCategoriesOnly: true),
                         ),
                         TextButton(

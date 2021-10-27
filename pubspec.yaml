@@ -45,6 +45,7 @@ dependencies:
   provider: ^6.0.0
   font_awesome_flutter: ^9.1.0
   rxdart: ^0.27.2
+  carousel_slider: ^4.0.0
 
   # Packages used in maps functionality
   dio: ^4.0.0
