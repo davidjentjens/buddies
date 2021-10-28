@@ -55,6 +55,9 @@ dependencies:
   geolocator: ^7.7.0
   geoflutterfire: ^3.0.1
 
+  # Notification packages
+  firebase_messaging: ^10.0.9
+
   # Algolia wrapper for its REST API
   algolia: ^1.0.1
 
