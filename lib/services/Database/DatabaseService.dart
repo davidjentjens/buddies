@@ -1,5 +1,4 @@
-import 'package:buddies/services/Database/Document.dart';
-import 'package:buddies/services/Globals.dart';
+import 'package:buddies/services/Messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -110,9 +109,9 @@ class DatabaseService {
   }
 
   Future<Null> createEvent(Event event) async {
-    var newDocRef = _db.collection('events').doc();
-    newDocRef.set({
-      "id": newDocRef.id,
+    var newEventDocRef = _db.collection('events').doc();
+    await newEventDocRef.set({
+      "id": newEventDocRef.id,
       "title": event.title,
       "description": event.description,
       "photoUrl": event.photoUrl,
@@ -137,8 +136,11 @@ class DatabaseService {
           "photoUrl": event.creator.photoUrl
         }
       ],
-      "category": event.category
+      "category": event.category,
+      "finished": false
     });
+
+    await Messaging().createTopic(newEventDocRef.id);
   }
 
   Future<Null> editEvent(Event event) async {
@@ -168,7 +170,7 @@ class DatabaseService {
           "photoUrl": event.creator.photoUrl
         }
       ],
-      "category": event.category
+      "category": event.category,
     }, SetOptions(merge: true));
   }
 }

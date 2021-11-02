@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/Event.dart';
 import '../../widgets/Loader.dart';
 import '../../services/Database/Document.dart';
+import '../../services/Messaging.dart';
 
 import './ConfirmParticipation.dart';
 
@@ -52,6 +54,8 @@ class _ParticipateButtonState extends State<ParticipateButton> {
         }
       ])
     });
+
+    await Messaging().subscribeToTopic(this.widget.event.id);
 
     ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
       content: Text(
@@ -112,6 +116,8 @@ class _ParticipateButtonState extends State<ParticipateButton> {
         }
       ])
     });
+
+    await Messaging().unsubscribeFromTopic(this.widget.event.id);
 
     ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
       content: Text(

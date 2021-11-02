@@ -16,7 +16,9 @@ import 'screens/Login.dart';
 import 'screens/Map/Map.dart';
 import 'screens/Profile.dart';
 import 'services/Auth.dart';
+import 'services/Database/Document.dart';
 import 'shared/NavController.dart';
+
 import 'AppTheme.dart';
 
 Future<void> main() async {
@@ -37,12 +39,15 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.instance.unsubscribeFromTopic('hBArkKcfJu44vznJJwW3');
 
-    FirebaseMessaging.onMessage.listen((message) {
-      if (message.notification != null) {
-        print(message.notification!.body);
-        print(message.notification!.title);
+    FirebaseMessaging.instance.getToken().then((value) {
+      String? token = value;
+      User? user = AuthService().getUser;
+      print(token);
+
+      if (token != null && user != null) {
+        Document(path: 'fcm_tokens/${user.uid}').upsert({token: token});
       }
     });
   }

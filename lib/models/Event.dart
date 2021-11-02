@@ -18,19 +18,22 @@ class Event {
   List<UserDetails> participants;
   String category;
   Category? categoryObject;
+  bool finished;
 
-  Event(
-      {required this.id,
-      required this.title,
-      required this.description,
-      required this.photoUrl,
-      required this.startTime,
-      required this.endTime,
-      required this.locationData,
-      required this.point,
-      required this.creator,
-      required this.participants,
-      required this.category});
+  Event({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.photoUrl,
+    required this.startTime,
+    required this.endTime,
+    required this.locationData,
+    required this.point,
+    required this.creator,
+    required this.participants,
+    required this.category,
+    required this.finished,
+  });
 
   factory Event.fromMap(Map data) {
     return Event(
@@ -46,6 +49,7 @@ class Event {
         participants: (data['participants'] ?? [])
             .map<UserDetails>((data) => UserDetails.fromMap(data))
             .toList(),
-        category: data['category'] ?? 'MISC');
+        category: data['category'] ?? 'MISC',
+        finished: data['finished']);
   }
 }
