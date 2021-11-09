@@ -14,26 +14,29 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [x] Participação simples em eventos
 
 ## Funcionalidades para a G2
-- [x] Criação de eventos
-- [ ] Edição de eventos
+- [ ] Gerenciamento de eventos
+  - [x] Criação de eventos
+  - [x] Edição de eventos
+  - [ ] Remoção de eventos
 - [ ] Participação de eventos
   - [x] Confirmação de participação
   - [ ] Formulário após o evento para informar quem realmente participou
   - [ ] Sistema de avaliação dos usuários baseada na participação dos eventos
-- [ ] Lógica para exibir eventos destacados
-- [ ] Validação das regras de negócio
+- [x] Lógica para exibir eventos destacados
+- [x] Validação das regras de negócio
 
 ### Funcionalidades Extra (podem não ser implementadas)
+- [x] Google Analytics
+- [x] Tratamento de erros para o usuário
 - [ ] Histórico de eventos participados e criados
-- [ ] Tratamento de erros para o usuário
 - [ ] Armazenamento dos interesses do usuário
-- [ ] Google Analytics
+- [ ] Scheduler de notificações de eventos
 
 ### Mudanças de Design adicionais
+- [x] Trocar ícones de categorias na Home por imagens com títulos
+- [x] Exibir eventos destacados na Home em um carrossel
 - [ ] Tornar AppBar mais elegante com transparência e animações
-- [ ] Trocar ícones de categorias na Home por imagens com títulos
 - [ ] Alterar palheta de cores com a ajuda de designers
-- [ ] Exibir eventos destacados na Home em um carrossel
 
 ---
 
@@ -46,3 +49,12 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 6. [x] Usar HTTP para acesso de alguma API para buscar uma coleção de dados ou imagens de um servidor backend (*) e apresentação em uma ListView
 7. [ ] ~~Uso do GestureDetection para redefinir uma gesture diferente sobre algum widget “acionável”~~
 8. [ ] ~~Usar o image_picker~~
+
+## Funcionalidades obrigatórias para a G2 (pelo menos 5)
+1. [x] Gerenciamento de um estado global do seu app usando BLOC/Streams, MobX ou Provider 
+2. [ ] Banco de dados local usando sqflite **[Dúvida!]**
+3. [ ] ~~Captura de Imagem ou de audio~~
+4. [ ] Uso de Method ou Event Channel (para acessar algum sensor ou bateria do dispositivo) **[Dúvida!]**
+5. [x] Streams e widget StreamBuilder
+6. [x] Uso do Plugin Local Notifications
+7. [ ] Internacionalização em pelo menos 2 línguas (BR/ENG/ES)
