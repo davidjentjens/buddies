@@ -173,4 +173,9 @@ class DatabaseService {
       "category": event.category,
     }, SetOptions(merge: true));
   }
+
+  Future<Null> deleteEvent(Event event) async {
+    var docRef = _db.doc('events/${event.id}');
+    docRef.delete();
+  }
 }

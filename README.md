@@ -14,10 +14,10 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [x] Participação simples em eventos
 
 ## Funcionalidades para a G2
-- [ ] Gerenciamento de eventos
+- [x] Gerenciamento de eventos
   - [x] Criação de eventos
   - [x] Edição de eventos
-  - [ ] Remoção de eventos
+  - [x] Remoção de eventos
 - [ ] Participação de eventos
   - [x] Confirmação de participação
   - [ ] Formulário após o evento para informar quem realmente participou

@@ -1,3 +1,4 @@
+import 'package:buddies/services/Database/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,6 +9,123 @@ class EditEventCard extends StatelessWidget {
   final Event event;
 
   const EditEventCard({Key? key, required this.event}) : super(key: key);
+
+  Future<bool> confirmDeletion(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text("Tem certeza que deseja deletar o evento?"),
+        content: Text("Esta ação é irreversível."),
+        actions: [
+          TextButton(
+            onPressed: () => {Navigator.pop(context, false)},
+            child: Text("Não"),
+          ),
+          TextButton(
+            onPressed: () => {Navigator.pop(context, true)},
+            child: Text("Sim"),
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
+  }
+
+  void snackBarDisplayDeletion(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+      content: Text(
+        'Evento deletado com sucesso.',
+        style: TextStyle(fontSize: 18),
+        textAlign: TextAlign.center,
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.green[300],
+    ));
+  }
+
+  void showEditDeleteModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16))),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text("O que deseja fazer com este evento?"),
+                        TextButton.icon(
+                          style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.black),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(0)),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              minimumSize:
+                                  MaterialStateProperty.all<Size>(Size(0, 0))),
+                          onPressed: () => Navigator.pop(context),
+                          icon: Icon(Icons.close),
+                          label: Text(""),
+                        )
+                      ]),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    EventEditor(event: event),
+                              ),
+                            );
+                          },
+                          icon: Icon(Icons.edit),
+                          label: Text("Editar")),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.red)),
+                          onPressed: () {
+                            confirmDeletion(context).then((confirmed) => {
+                                  if (confirmed)
+                                    {
+                                      DatabaseService().deleteEvent(event),
+                                      snackBarDisplayDeletion(context),
+                                      Navigator.pop(context)
+                                    }
+                                });
+                          },
+                          icon: Icon(Icons.delete),
+                          label: Text("Deletar")),
+                    ),
+                  )
+                ]),
+              ));
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +140,7 @@ class EditEventCard extends StatelessWidget {
             ),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                        EventEditor(event: event),
-                  ),
-                );
+                showEditDeleteModal(context);
               },
               child: Padding(
                 padding: EdgeInsets.all(16),
