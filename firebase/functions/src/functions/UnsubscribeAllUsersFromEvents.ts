@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 
 import admin from "../config/admin";
-import messagingApi from "../helpers/messagingApi";
+import messagingApi from "../services/messagingApi";
 
 const db = admin.firestore();
 
