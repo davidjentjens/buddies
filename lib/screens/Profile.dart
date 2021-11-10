@@ -19,7 +19,6 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
-        backgroundColor: Color(0xFF00A19D),
       ),
       body: Container(
         alignment: Alignment.center,

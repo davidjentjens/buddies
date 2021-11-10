@@ -6,6 +6,7 @@ import 'package:buddies/widgets/Loader.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/AvatarButton.dart';
+import '../../widgets/NotificationButton/NotificationButton.dart';
 import 'EventSearchResults.dart';
 import 'EventCatalog.dart';
 
@@ -88,7 +89,7 @@ class _EventBrowserScreenState extends State<EventBrowserScreen> {
         centerTitle: false,
         title: _appBarTitle,
         leading: MaterialButton(onPressed: _searchPressed, child: _searchIcon),
-        actions: [AvatarButton()],
+        actions: [AvatarButton(), NotificationButton()],
       ),
       body: _searching
           ? LoadingScreen()

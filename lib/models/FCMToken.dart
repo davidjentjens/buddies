@@ -1,11 +1,11 @@
 class FCMToken {
-  String token;
+  List<String> tokens;
 
   FCMToken({
-    required this.token,
+    required this.tokens,
   });
 
   factory FCMToken.fromMap(Map data) {
-    return FCMToken(token: data['token']);
+    return FCMToken(tokens: data['tokens']);
   }
 }

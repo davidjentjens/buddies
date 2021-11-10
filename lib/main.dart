@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,10 @@ import 'screens/EventBrowser/EventBrowser.dart';
 import 'screens/Login.dart';
 import 'screens/Map/Map.dart';
 import 'screens/Profile.dart';
+import 'screens/Notifications/Notifications.dart';
 import 'services/Auth.dart';
 import 'services/Database/Document.dart';
+import 'models/FCMToken.dart';
 import 'shared/NavController.dart';
 
 import 'AppTheme.dart';
@@ -35,20 +38,27 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   void initState() {
     super.initState();
 
-    FirebaseMessaging.instance.unsubscribeFromTopic('hBArkKcfJu44vznJJwW3');
-
     FirebaseMessaging.instance.getToken().then((value) {
       String? token = value;
       User? user = AuthService().getUser;
-      print(token);
 
       if (token != null && user != null) {
-        Document(path: 'fcm_tokens/${user.uid}').upsert({token: token});
+        Document<FCMToken>(path: 'fcm_tokens/${user.uid}').update({
+          "tokens": FieldValue.arrayUnion([token])
+        });
       }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage = message.data['route'];
+
+      navigatorKey.currentState!.pushNamed("/$routeFromMessage");
     });
   }
 
@@ -62,15 +72,18 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         navigatorObservers: [
           FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
         ],
+        initialRoute: '/',
         routes: {
           '/': (context) => LoginScreen(),
           '/home': (context) => NavController(),
           '/events': (context) => EventBrowserScreen(),
           '/map': (context) => MapScreen(),
           '/profile': (context) => ProfileScreen(),
+          '/notifications': (context) => NotificationsScreen(),
           '/agenda': (context) => AgendaScreen(),
           '/manage': (context) => EventManager(),
         },

@@ -1,3 +1,3 @@
 export default interface Topic{
-  tokens: string[];
+  uids: string[];
 }
