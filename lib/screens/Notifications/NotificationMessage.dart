@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../services/Database/Document.dart';
 import '../../models/AppNotification.dart';
+import '../../screens/EventDetails/EventDetails.dart';
 
 class NotificationMessage extends StatelessWidget {
   const NotificationMessage({
@@ -48,13 +49,18 @@ class NotificationMessage extends StatelessWidget {
                     ),
                     enableFeedback: true,
                     onTap: () async {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              EventDetailScreen(eventId: notification.route),
+                        ),
+                      );
+
                       var notificationRef = Document(
                               path:
                                   "userinfo/${user.uid}/notifications/${notification.id}")
                           .ref;
                       await notificationRef.delete();
-
-                      // TODO Implement redirect here
                     },
                   ),
                   onDismissed: (direction) async {
