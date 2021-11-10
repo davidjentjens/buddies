@@ -23,10 +23,7 @@ export const sweepEventsDaily = functions.pubsub
       await Promise.all(querySnapshot.docs.map(async (doc) => {
         const event = doc.data() as Event;
         const eventStartDate = event.startTime.toDate();
-        const eventEndDate = event.startTime.toDate();
-
-        const diffInMS = eventStartDate.getTime() - currentDate.getTime();
-        const diffInHours = diffInMS / 1000 / 60 / 60;
+        const eventEndDate = event.endTime.toDate();
 
         const eventTopicDoc = await db.doc(`topics/${event.id}`).get();
         const eventTopic = eventTopicDoc.data() as Topic;
@@ -42,9 +39,9 @@ export const sweepEventsDaily = functions.pubsub
           await Promise.all(eventTopic.uids.map(async (uid) => {
             const notification: Notification = {
               title: "Evento encerrado buddies!",
-              body: `O evento ${event.title} está encerrado. Pedimos que faça 
-                uma avaliação de participação dos seus colegas para que 
-                registrar quem estava presente. Obrigado :)`,
+              body: `O evento ${event.title} está encerrado. Pedimos que faça` +
+                " uma avaliação de participação dos seus colegas para que" +
+                " possa ser registrada a sua presença. Obrigado :)",
               route: event.id,
               emissionDate: admin.firestore.Timestamp.now(),
               type: "EVALUATE",
@@ -53,6 +50,9 @@ export const sweepEventsDaily = functions.pubsub
             await sendNotification(db, uid, notification);
           }));
         }
+
+        const diffInMS = eventStartDate.getTime() - currentDate.getTime();
+        const diffInHours = diffInMS / 1000 / 60 / 60;
 
         if (diffInHours > 0 && diffInHours < 24) {
           await Promise.all(eventTopic.uids.map(async (uid) => {

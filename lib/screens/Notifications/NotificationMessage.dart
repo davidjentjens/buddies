@@ -21,7 +21,7 @@ class NotificationMessage extends StatelessWidget {
       case 'EVENT_SOON':
         return Icons.timer;
       case 'EVALUATE':
-        return Icons.thumbs_up_down;
+        return Icons.assignment_turned_in;
       default:
         return Icons.notifications;
     }
@@ -42,10 +42,23 @@ class NotificationMessage extends StatelessWidget {
                       size: 36,
                     ),
                     title: Text(notification.title),
-                    subtitle: Text(
-                      "${notification.body}\n${DateFormat.MMMMd('pt_BR').add_jm().format(notification.emissionDate.toDate())}",
-                      maxLines: 5,
-                      overflow: TextOverflow.ellipsis,
+                    subtitle: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${notification.body}",
+                          maxLines: 7,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Container(height: 10),
+                        Text(
+                          "${DateFormat.MMMMd('pt_BR').add_jm().format(notification.emissionDate.toDate())}",
+                          maxLines: 7,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 14),
+                        )
+                      ],
                     ),
                     enableFeedback: true,
                     onTap: () async {
