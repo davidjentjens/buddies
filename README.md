@@ -55,9 +55,9 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 
 ## Funcionalidades obrigatórias para a G2 (pelo menos 5)
 1. [x] Gerenciamento de um estado global do seu app usando BLOC/Streams, MobX ou Provider 
-2. [ ] Banco de dados local usando sqflite **[Dúvida!]**
+2. [x] ~~Banco de dados local usando sqflite~~ **Substituido por: Banco de dados Firestore com Cloud Functions**
 3. [ ] ~~Captura de Imagem ou de audio~~
-4. [ ] Uso de Method ou Event Channel (para acessar algum sensor ou bateria do dispositivo) **[Dúvida!]**
+4. [x] Uso de Method ou Event Channel (para acessar algum sensor ou bateria do dispositivo) **Utilizando localização do usuário**
 5. [x] Streams e widget StreamBuilder
 6. [x] Uso do Plugin Local Notifications
-7. [ ] Internacionalização em pelo menos 2 línguas (BR/ENG/ES)
+7. [ ] ~~Internacionalização em pelo menos 2 línguas (BR/ENG/ES)~~
