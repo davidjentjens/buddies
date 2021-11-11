@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -77,6 +76,25 @@ class _ParticipateButtonState extends State<ParticipateButton> {
   void _userLeave(BuildContext context, User user) async {
     var eventDate = DateTime.fromMillisecondsSinceEpoch(
         this.widget.event.startTime.millisecondsSinceEpoch);
+
+    if (this.widget.event.participants.map((p) => p.uid).contains(user.uid)) {
+      await showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text("Ação bloqueada"),
+          content: Text(
+              "O criador do evento não pode sair do mesmo. Se desejar cancelar o evento, delete-o na tela de gerenciamento de eventos."),
+          actions: [
+            TextButton(
+              onPressed: () => {Navigator.pop(context, true)},
+              child: Text("Ok"),
+            ),
+          ],
+        ),
+        barrierDismissible: false,
+      );
+      return;
+    }
 
     if (eventDate.difference(DateTime.now()).inHours < 24) {
       bool confirm = await showDialog(
