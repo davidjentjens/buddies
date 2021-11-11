@@ -13,6 +13,19 @@ export const updateAllUserTokens = functions.firestore
       const topicBefore = snapshot.before.data() as Topic;
       const topicAfter = snapshot.after.data() as Topic;
 
+      if (topicAfter.uids.length == 0) {
+        await Promise.all(topicBefore.uids.map(async (uidToUnsubscribe) => {
+          const userSnapshot = await db.doc(`fcm_tokens/${uidToUnsubscribe}`).get();
+          const user = userSnapshot.data() as FCMToken;
+
+          await Promise.all(user.tokens.map(async (token: string) => {
+            const topic = snapshot.after.id;
+            await admin.messaging().unsubscribeFromTopic(token, topic);
+          }));
+        }));
+        return;
+      }
+
       if (topicAfter.uids.length < topicBefore.uids.length) {
         const difference = topicBefore.uids
             .filter((uid) => topicAfter.uids.indexOf(uid) === -1);
