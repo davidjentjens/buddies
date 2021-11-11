@@ -82,9 +82,6 @@ class NotificationMessage extends StatelessWidget {
                                 "userinfo/${user.uid}/notifications/${notification.id}")
                         .ref;
                     await notificationRef.delete();
-                    notifications.removeWhere(
-                        (element) => element.id == notification.id);
-                    print(notifications.length);
                   },
                 ),
                 SizedBox(height: 20)

@@ -29,8 +29,6 @@ class Messaging {
       return;
     }
 
-    _ms.subscribeToTopic(eventId);
-
     var topicDocRef = Document(path: 'topics/$eventId');
     await topicDocRef.ref.update({
       "uids": FieldValue.arrayUnion([user.uid])
@@ -42,8 +40,6 @@ class Messaging {
     if (user == null) {
       return;
     }
-
-    _ms.unsubscribeFromTopic(eventId);
 
     var topicDocRef = Document(path: 'topics/$eventId');
     await topicDocRef.ref.update({
