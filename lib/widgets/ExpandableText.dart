@@ -4,13 +4,14 @@ class ExpandableText extends StatefulWidget {
   ExpandableText(this.text);
 
   final String text;
-  bool isExpanded = false;
 
   @override
   _ExpandableTextState createState() => _ExpandableTextState();
 }
 
 class _ExpandableTextState extends State<ExpandableText> {
+  bool isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,16 +20,16 @@ class _ExpandableTextState extends State<ExpandableText> {
         Text(
           widget.text,
           overflow: TextOverflow.ellipsis,
-          maxLines: widget.isExpanded ? 100 : 3,
+          maxLines: isExpanded ? 100 : 3,
         ),
         TextButton(
           onPressed: () {
             setState(() {
-              widget.isExpanded = !widget.isExpanded;
+              isExpanded = !isExpanded;
             });
           },
           child: Text(
-            widget.isExpanded ? "Ler menos" : "Ler mais",
+            isExpanded ? "Ler menos" : "Ler mais",
           ),
           style: TextButton.styleFrom(
             padding: EdgeInsets.all(0),

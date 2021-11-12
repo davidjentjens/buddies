@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../services/Database/DatabaseService.dart';
 import '../../services/LocationService.dart';
 import '../../models/Event.dart';
 import '../../widgets/Loader.dart';
-import '../../widgets/EventCard.dart';
 import '../../screens/EventBrowser/CategoryPage.dart';
 
 import 'EventCarousel.dart';

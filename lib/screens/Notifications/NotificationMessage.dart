@@ -68,7 +68,8 @@ class NotificationMessage extends StatelessWidget {
                               EventDetailScreen(eventId: notification.route),
                         ),
                       );
-
+                      notifications.removeWhere(
+                          (element) => element.id == notification.id);
                       var notificationRef = Document(
                               path:
                                   "userinfo/${user.uid}/notifications/${notification.id}")
@@ -77,6 +78,8 @@ class NotificationMessage extends StatelessWidget {
                     },
                   ),
                   onDismissed: (direction) async {
+                    notifications.removeWhere(
+                        (element) => element.id == notification.id);
                     var notificationRef = Document(
                             path:
                                 "userinfo/${user.uid}/notifications/${notification.id}")

@@ -175,7 +175,12 @@ class DatabaseService {
   }
 
   Future<Null> deleteEvent(Event event) async {
-    var docRef = _db.doc('events/${event.id}');
-    docRef.delete();
+    var eventRef = _db.doc('events/${event.id}');
+    eventRef.delete();
+
+    // TODO: Move logic to functions
+    var topicRef = _db.doc('topics/${event.id}');
+    topicRef.update({"uids": []});
+    topicRef.delete();
   }
 }
