@@ -77,7 +77,7 @@ class _ParticipateButtonState extends State<ParticipateButton> {
     var eventDate = DateTime.fromMillisecondsSinceEpoch(
         this.widget.event.startTime.millisecondsSinceEpoch);
 
-    if (this.widget.event.participants.map((p) => p.uid).contains(user.uid)) {
+    if (this.widget.event.creator.uid == user.uid) {
       await showDialog(
         context: context,
         builder: (_) => AlertDialog(

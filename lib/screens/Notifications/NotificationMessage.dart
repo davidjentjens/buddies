@@ -6,7 +6,7 @@ import '../../services/Database/Document.dart';
 import '../../models/AppNotification.dart';
 import '../../screens/EventDetails/EventDetails.dart';
 
-class NotificationMessage extends StatelessWidget {
+class NotificationMessage extends StatefulWidget {
   const NotificationMessage({
     Key? key,
     required this.notifications,
@@ -16,6 +16,11 @@ class NotificationMessage extends StatelessWidget {
   final List<AppNotification> notifications;
   final User user;
 
+  @override
+  _NotificationMessageState createState() => _NotificationMessageState();
+}
+
+class _NotificationMessageState extends State<NotificationMessage> {
   _getIcon(type) {
     switch (type) {
       case 'EVENT_SOON':
@@ -30,7 +35,7 @@ class NotificationMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: notifications
+      children: widget.notifications
           .map(
             (notification) => Column(
               children: [
@@ -68,21 +73,25 @@ class NotificationMessage extends StatelessWidget {
                               EventDetailScreen(eventId: notification.route),
                         ),
                       );
-                      notifications.removeWhere(
-                          (element) => element.id == notification.id);
+                      setState(() => {
+                            this.widget.notifications.removeWhere(
+                                (element) => element.id == notification.id)
+                          });
                       var notificationRef = Document(
                               path:
-                                  "userinfo/${user.uid}/notifications/${notification.id}")
+                                  "userinfo/${widget.user.uid}/notifications/${notification.id}")
                           .ref;
                       await notificationRef.delete();
                     },
                   ),
                   onDismissed: (direction) async {
-                    notifications.removeWhere(
-                        (element) => element.id == notification.id);
+                    setState(() => {
+                          this.widget.notifications.removeWhere(
+                              (element) => element.id == notification.id)
+                        });
                     var notificationRef = Document(
                             path:
-                                "userinfo/${user.uid}/notifications/${notification.id}")
+                                "userinfo/${widget.user.uid}/notifications/${notification.id}")
                         .ref;
                     await notificationRef.delete();
                   },
