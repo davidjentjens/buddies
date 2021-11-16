@@ -35,6 +35,7 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
   - [x] Implementar notificaçõos in-app
 - [ ] Histórico de eventos participados e criados
 - [ ] Armazenamento dos interesses do usuário
+- [ ] Implementar um método mais eficiente e rápido de buscar imagens
 
 ### Mudanças de Design adicionais
 - [x] Trocar ícones de categorias na Home por imagens com títulos
