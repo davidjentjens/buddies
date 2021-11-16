@@ -10,7 +10,7 @@ import Notification from "../interfaces/AppNotification";
 
 const db = admin.firestore();
 
-export const sweepEventsDaily = functions.pubsub
+export const sweepEventsPeriodically = functions.pubsub
     .schedule("0 * * * *")
     .onRun(async (_context) => {
       const currentDate = new Date();
@@ -39,12 +39,12 @@ export const sweepEventsDaily = functions.pubsub
           await Promise.all(eventTopic.uids.map(async (uid) => {
             const notification: Notification = {
               title: "Evento encerrado buddies!",
-              body: `O evento ${event.title} está encerrado. Pedimos que faça` +
-                " uma avaliação de participação dos seus colegas para que" +
-                " possa ser registrada a sua presença. Obrigado :)",
+              body: `O evento ${event.title} está encerrado. Esperamos que` +
+                " tenha tido uma ótima experiência! Você ainda pode ver os" +
+                " detalhes do evento no seu histórico.",
               route: event.id,
               emissionDate: admin.firestore.Timestamp.now(),
-              type: "EVALUATE",
+              type: "EVENT_END",
             };
 
             await sendNotification(db, uid, notification);

@@ -1,8 +1,10 @@
 /* eslint-disable max-len */
 
+export {sweepEventsPeriodically} from "./functions/SweepEventsPeriodically";
+
 export {incrementCategoryEventNum} from "./functions/IncrementCategoryEventNum";
 export {decrementCategoryEventNum} from "./functions/DecrementCategoryEventNum";
-export {sweepEventsDaily} from "./functions/SweepEventsDaily";
+
 export {updateAllUserTokens} from "./functions/UpdateAllUserTokens";
 export {deleteEventTopic} from "./functions/DeleteEventTopic";
 
