@@ -19,6 +19,7 @@ class Event {
   String category;
   Category? categoryObject;
   bool finished;
+  String? code;
 
   Event({
     required this.id,
@@ -33,6 +34,7 @@ class Event {
     required this.participants,
     required this.category,
     required this.finished,
+    this.code,
   });
 
   factory Event.fromMap(Map data) {
@@ -51,5 +53,6 @@ class Event {
             .toList(),
         category: data['category'] ?? 'MISC',
         finished: data['finished']);
+        code: data['code']);
   }
 }
