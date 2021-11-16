@@ -6,7 +6,7 @@ import '../../widgets/Loader.dart';
 import '../../services/Auth.dart';
 import '../../services/Database/Collection.dart';
 import '../../models/AppNotification.dart';
-import './NotificationMessage.dart';
+import './NotificationMessages.dart';
 
 class NotificationsScreen extends StatelessWidget {
   final AuthService auth = AuthService();
@@ -36,7 +36,7 @@ class NotificationsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10),
               child: Center(
                 child: notifications.length > 0
-                    ? NotificationMessage(
+                    ? NotificationMessages(
                         notifications: notifications, user: user)
                     : Padding(
                         padding: EdgeInsets.all(20),

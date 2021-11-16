@@ -6,8 +6,8 @@ import '../../services/Database/Document.dart';
 import '../../models/AppNotification.dart';
 import '../../screens/EventDetails/EventDetails.dart';
 
-class NotificationMessage extends StatefulWidget {
-  const NotificationMessage({
+class NotificationMessages extends StatefulWidget {
+  const NotificationMessages({
     Key? key,
     required this.notifications,
     required this.user,
@@ -17,16 +17,16 @@ class NotificationMessage extends StatefulWidget {
   final User user;
 
   @override
-  _NotificationMessageState createState() => _NotificationMessageState();
+  _NotificationMessagesState createState() => _NotificationMessagesState();
 }
 
-class _NotificationMessageState extends State<NotificationMessage> {
+class _NotificationMessagesState extends State<NotificationMessages> {
   _getIcon(type) {
     switch (type) {
       case 'EVENT_SOON':
         return Icons.timer;
-      case 'EVALUATE':
-        return Icons.assignment_turned_in;
+      case 'EVENT_END':
+        return Icons.thumb_up;
       default:
         return Icons.notifications;
     }
