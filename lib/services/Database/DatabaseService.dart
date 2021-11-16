@@ -138,7 +138,7 @@ class DatabaseService {
         }
       ],
       "category": event.category,
-      "finished": false
+      "finished": false,
       "code": Random().nextInt(10000).toString(),
     });
 

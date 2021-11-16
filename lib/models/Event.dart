@@ -18,7 +18,7 @@ class Event {
   List<UserDetails> participants;
   String category;
   Category? categoryObject;
-  bool finished;
+  bool? finished;
   String? code;
 
   Event({
@@ -33,7 +33,7 @@ class Event {
     required this.creator,
     required this.participants,
     required this.category,
-    required this.finished,
+    this.finished,
     this.code,
   });
 
@@ -52,7 +52,7 @@ class Event {
             .map<UserDetails>((data) => UserDetails.fromMap(data))
             .toList(),
         category: data['category'] ?? 'MISC',
-        finished: data['finished']);
+        finished: data['finished'],
         code: data['code']);
   }
 }

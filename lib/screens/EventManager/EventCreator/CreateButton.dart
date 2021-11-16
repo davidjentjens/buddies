@@ -127,7 +127,6 @@ class CreateButton extends StatelessWidget {
       creator: creatorUser,
       participants: [creatorUser],
       category: this.selectedCategory!.id,
-      finished: false,
     );
 
     try {
