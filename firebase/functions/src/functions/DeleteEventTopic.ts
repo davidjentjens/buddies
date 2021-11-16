@@ -1,11 +1,11 @@
-/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as functions from "firebase-functions";
 
 import admin from "../config/admin";
 
 const db = admin.firestore();
 
-export const unsubscribeUsersOnDeleteEvent = functions.firestore
+export const deleteEventTopic = functions.firestore
     .document("events/{eventId}")
     .onDelete(async (snapshot, _context) => {
       const eventId = snapshot.id;
@@ -13,4 +13,6 @@ export const unsubscribeUsersOnDeleteEvent = functions.firestore
       await db.doc(`topics/${eventId}`).update({
         "uids": [],
       });
+
+      await db.collection("topics").doc(snapshot.id).delete();
     });
