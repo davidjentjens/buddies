@@ -21,7 +21,7 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [ ] Participação de eventos
   - [x] Confirmação de participação
   - [x] Ocultar o botão de participar/sair do evento para o criador
-  - [ ] Gerar um PIN para cada evento e deixar visível para o criador
+  - [x] Gerar um PIN para cada evento e deixar visível para o criador
   - [ ] Em até 48h após a participação, permitir que os participantes insiram o PIN para comprovar sua presença
   - [ ] Depois das 48h, calcular o ranking dos participantes
 - [x] Lógica para exibir eventos destacados
