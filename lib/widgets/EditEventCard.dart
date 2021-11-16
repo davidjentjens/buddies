@@ -63,6 +63,31 @@ class EditEventCard extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(children: [
+                  Text(
+                    "Evento ${event.title}",
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  SizedBox(height: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .secondaryHeaderColor
+                          .withOpacity(0.2),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 20,
+                        bottom: 20,
+                        left: 100,
+                        right: 100,
+                      ),
+                      child: Text(
+                        event.code!,
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -132,65 +157,92 @@ class EditEventCard extends StatelessWidget {
     return SingleChildScrollView(
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Expanded(
-          child: Card(
-            color: Color(0xFFfff4ed),
-            margin: EdgeInsets.all(16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: InkWell(
-              onTap: () {
-                showEditDeleteModal(context);
-              },
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
+            children: [
+              Card(
+                color: Color(0xFFfff4ed),
+                margin: EdgeInsets.all(16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    showEditDeleteModal(context);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          this.event.title,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(Icons.person, size: 16),
-                            SizedBox(
-                              width: 5,
-                            ),
                             Text(
-                              '${event.participants.length.toString()}',
-                              style: TextStyle(color: Colors.grey[600]),
+                              this.event.title,
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Icon(Icons.person, size: 16),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '${event.participants.length.toString()}',
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
+                              ],
                             ),
                           ],
                         ),
+                        Text(
+                          DateFormat.MMMMd('pt_BR')
+                              .add_jm()
+                              .format(event.startTime.toDate()),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(event.description,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: TextStyle(fontSize: 18))
                       ],
                     ),
-                    Text(
-                      DateFormat.MMMMd('pt_BR')
-                          .add_jm()
-                          .format(event.startTime.toDate()),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(event.description,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(fontSize: 18))
-                  ],
+                  ),
                 ),
               ),
-            ),
+              Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: new BoxDecoration(
+                    color: Theme.of(context).secondaryHeaderColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 22,
+                    minHeight: 22,
+                  ),
+                  child: new Text(
+                    'Código: ${this.event.code}',
+                    style: new TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
           ),
         )
       ]),

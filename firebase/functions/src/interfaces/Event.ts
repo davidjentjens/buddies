@@ -15,4 +15,5 @@ export default interface Event{
   participants: UserDetails[];
   category: string;
   finished: boolean;
+  code: string;
 }
