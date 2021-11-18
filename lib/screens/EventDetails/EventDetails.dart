@@ -5,7 +5,7 @@ import '../../widgets/Loader.dart';
 import '../../models/Event.dart';
 
 import 'HeroImage.dart';
-import 'ParticipateButton.dart';
+import 'EventActionButton/EventActionButton.dart';
 import 'EventHeader.dart';
 import 'EventMap.dart';
 import 'EventParticipants.dart';
@@ -22,7 +22,7 @@ class EventDetailScreen extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            bottomSheet: ParticipateButton(
+            bottomSheet: EventActionButton(
               event: snapshot.data,
             ),
             body: NestedScrollView(
