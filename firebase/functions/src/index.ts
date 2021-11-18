@@ -5,8 +5,13 @@ export {sweepEventsPeriodically} from "./functions/SweepEventsPeriodically/Sweep
 export {incrementCategoryEventNum} from "./functions/IncrementCategoryEventNum";
 export {decrementCategoryEventNum} from "./functions/DecrementCategoryEventNum";
 
-export {updateAllUserTokens} from "./functions/UpdateAllUserTokens";
+export {createEventTopic} from "./functions/CreateEventTopic";
+export {updateEventTopic} from "./functions/UpdateEventTopic";
 export {deleteEventTopic} from "./functions/DeleteEventTopic";
+
+export {createTokenSubscriptions} from "./functions/CreateTokenSubscriptions";
+export {updateTokenSubscriptions} from "./functions/UpdateTokenSubscriptions";
+export {deleteTokenSubscriptions} from "./functions/DeleteTokenSubscriptions";
 
 export {createEventAttendance} from "./functions/CreateEventAttendance";
 export {updateEventAttendance} from "./functions/UpdateEventAttendance";

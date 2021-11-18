@@ -7,7 +7,7 @@ import Topic from "../interfaces/Topic";
 
 const db = admin.firestore();
 
-export const updateAllUserTokens = functions.firestore
+export const updateTokenSubscriptions = functions.firestore
     .document("topics/{topicId}")
     .onUpdate(async (snapshot, _context) => {
       const topicBefore = snapshot.before.data() as Topic;

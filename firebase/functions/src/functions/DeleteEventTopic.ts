@@ -8,11 +8,5 @@ const db = admin.firestore();
 export const deleteEventTopic = functions.firestore
     .document("events/{eventId}")
     .onDelete(async (snapshot, _context) => {
-      const eventId = snapshot.id;
-
-      await db.doc(`topics/${eventId}`).update({
-        "uids": [],
-      });
-
       await db.collection("topics").doc(snapshot.id).delete();
     });

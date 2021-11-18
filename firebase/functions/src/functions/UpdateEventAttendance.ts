@@ -11,11 +11,6 @@ export const updateEventAttendance = functions.firestore
     .onUpdate(async (snapshot, _context) => {
       const eventAfter = snapshot.after.data() as Event;
 
-      const currentDate = new Date();
-      if (currentDate > eventAfter.startTime.toDate()) {
-        return;
-      }
-
       const participantData = {} as any;
       eventAfter.participants.map((participant) => participant.uid)
           .forEach((uid) => {

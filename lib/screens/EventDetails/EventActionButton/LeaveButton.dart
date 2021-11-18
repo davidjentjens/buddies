@@ -80,12 +80,6 @@ class LeaveButton extends StatelessWidget {
       ])
     });
 
-    //TODO: Move logic to functions
-    var topicDoc = Document<Event>(path: 'topics/${this.event.id}');
-    await topicDoc.update({
-      "uids": FieldValue.arrayRemove([user.uid])
-    });
-
     this.showSnackBar(
       "Você saiu deste evento. Esperamos vê-lo em breve!",
       Colors.red[300],

@@ -1,4 +1,3 @@
-import 'package:buddies/services/Messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -141,8 +140,6 @@ class DatabaseService {
       "finished": false,
       "code": Random().nextInt(10000).toString(),
     });
-
-    await Messaging().createTopic(newEventDocRef.id);
   }
 
   Future<Null> editEvent(Event event) async {

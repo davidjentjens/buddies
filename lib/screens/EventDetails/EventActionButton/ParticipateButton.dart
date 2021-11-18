@@ -42,12 +42,6 @@ class ParticipateButton extends StatelessWidget {
       ])
     });
 
-    //TODO: Move logic to functions
-    var topicDoc = Document<Event>(path: 'topics/${this.event.id}');
-    await topicDoc.update({
-      "uids": FieldValue.arrayUnion([this.user.uid])
-    });
-
     this.showSnackBar(
       'Parabéns! Você está participando deste evento!',
       Colors.green[300],
