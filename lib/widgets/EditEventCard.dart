@@ -1,8 +1,9 @@
-import 'package:buddies/services/Database/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../screens/EventManager/EventEditor/EventEditor.dart';
+import '../screens/EventDetails/EventDetails.dart';
+import '../services/Database/DatabaseService.dart';
 import '../models/Event.dart';
 
 class EditEventCard extends StatelessWidget {
@@ -54,7 +55,7 @@ class EditEventCard extends StatelessWidget {
         backgroundColor: Colors.transparent,
         builder: (BuildContext context) {
           return Container(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.6,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -107,6 +108,29 @@ class EditEventCard extends StatelessWidget {
                           label: Text(""),
                         )
                       ]),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  EventDetailScreen(eventId: event.id),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.visibility),
+                        label: Text("Visualizar"),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).primaryColor),
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 16),
                   Expanded(
                     child: SizedBox(
