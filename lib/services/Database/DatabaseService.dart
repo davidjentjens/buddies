@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'dart:math';
 
 import '../../models/Event.dart';
@@ -109,6 +110,8 @@ class DatabaseService {
   }
 
   Future<Null> createEvent(Event event) async {
+    NumberFormat formatter = new NumberFormat("0000");
+
     var newEventDocRef = _db.collection('events').doc();
     await newEventDocRef.set({
       "id": newEventDocRef.id,
@@ -138,7 +141,7 @@ class DatabaseService {
       ],
       "category": event.category,
       "finished": false,
-      "code": Random().nextInt(10000).toString(),
+      "code": formatter.format(Random().nextInt(10000)),
     });
   }
 
