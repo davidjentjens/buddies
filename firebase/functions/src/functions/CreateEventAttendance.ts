@@ -6,7 +6,7 @@ import Event from "../interfaces/Event";
 
 const db = admin.firestore();
 
-export const createEventEvaluation = functions.firestore
+export const createEventAttendance = functions.firestore
     .document("events/{eventId}")
     .onCreate(async (snapshot, _context) => {
       const event = snapshot.data() as Event;
@@ -17,7 +17,7 @@ export const createEventEvaluation = functions.firestore
             participantData[uid] = false;
           });
 
-      await db.collection("evaluations").doc(snapshot.id).set({
+      await db.collection("attendance").doc(snapshot.id).set({
         "title": event.title,
         "code": event.code,
         "emissionDate": event.endTime,

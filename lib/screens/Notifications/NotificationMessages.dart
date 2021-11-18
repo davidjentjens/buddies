@@ -25,6 +25,8 @@ class _NotificationMessagesState extends State<NotificationMessages> {
     switch (type) {
       case 'EVENT_SOON':
         return Icons.timer;
+      case 'EVENT_STARTED':
+        return Icons.flag;
       case 'EVENT_END':
         return Icons.thumb_up;
       default:

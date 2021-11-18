@@ -4,7 +4,7 @@ export default interface AppNotification{
   id?: string;
   title: string;
   body: string;
-  type: "EVENT_SOON" | "EVENT_END";
+  type: "EVENT_SOON" | "EVENT_STARTED" | "EVENT_END";
   route: string;
   emissionDate: Timestamp;
 }
