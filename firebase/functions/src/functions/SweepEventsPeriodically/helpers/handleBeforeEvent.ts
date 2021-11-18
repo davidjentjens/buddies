@@ -4,7 +4,7 @@ import Event from "../../../interfaces/Event";
 import Topic from "../../../interfaces/Topic";
 import Notification from "../../../interfaces/AppNotification";
 
-import sendNotification from "./sendNotification";
+import sendNotification from "../../../helpers/sendNotification";
 
 const handleBeforeEvent = async (db: FirebaseFirestore.Firestore,
     event: Event, eventTopic: Topic): Promise<void> => {

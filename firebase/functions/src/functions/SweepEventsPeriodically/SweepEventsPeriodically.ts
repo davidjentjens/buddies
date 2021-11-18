@@ -34,10 +34,12 @@ export const sweepEventsPeriodically = functions.pubsub
 
         if (diffInHours > 0 && diffInHours < 24) {
           await handleBeforeEvent(db, event, eventTopic);
+          return;
         }
 
         if (currentDate > eventStartDate && currentDate < eventEndDate) {
           await handleDuringEvent(db, event, eventTopic);
+          return;
         }
 
         if (currentDate > eventEndDate) {

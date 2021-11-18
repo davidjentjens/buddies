@@ -1,9 +1,9 @@
 import {FirebaseError} from "firebase-admin";
 
-import admin from "../../../config/admin";
+import admin from "../config/admin";
 
-import FCMToken from "../../../interfaces/FCMToken";
-import Notification from "../../../interfaces/AppNotification";
+import FCMToken from "../interfaces/FCMToken";
+import Notification from "../interfaces/AppNotification";
 
 const sendNotification = async (db: FirebaseFirestore.Firestore,
     uid:string, notification: Notification): Promise<void> => {
