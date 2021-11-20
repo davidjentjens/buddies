@@ -1,10 +1,10 @@
+import 'package:buddies/services/Database/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../widgets/Loader.dart';
 import '../../services/Auth.dart';
-import '../../services/Database/Collection.dart';
 import '../../models/AppNotification.dart';
 import './NotificationMessages.dart';
 
@@ -20,9 +20,7 @@ class NotificationsScreen extends StatelessWidget {
     }
 
     return StreamBuilder(
-      stream: Collection<AppNotification>(
-              path: '/userinfo/${user.uid}/notifications')
-          .streamData(),
+      stream: DatabaseService().streamUserNotifications(uid: user.uid),
       builder: (BuildContext context, AsyncSnapshot streamSnapshot) {
         if (streamSnapshot.hasData) {
           var notifications = streamSnapshot.data as List<AppNotification>;
@@ -30,6 +28,13 @@ class NotificationsScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text("Notifications"),
+              actions: [
+                IconButton(
+                  onPressed: () => {},
+                  //DatabaseService().clearNotifications(uid: user.uid),
+                  icon: Icon(Icons.cleaning_services),
+                )
+              ],
             ),
             body: Container(
               alignment: Alignment.center,

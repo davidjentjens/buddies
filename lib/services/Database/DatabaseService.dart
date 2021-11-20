@@ -7,6 +7,7 @@ import 'dart:math';
 
 import '../../models/Event.dart';
 import '../../models/Category.dart';
+import 'package:buddies/models/AppNotification.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -179,5 +180,27 @@ class DatabaseService {
   Future<Null> deleteEvent(Event event) async {
     var eventRef = _db.doc('events/${event.id}');
     eventRef.delete();
+  }
+
+  Stream<List<AppNotification>> streamUserNotifications({required String uid}) {
+    return _db
+        .collection('/userinfo/$uid/notifications')
+        .orderBy('emissionDate', descending: true)
+        .snapshots()
+        .map((querySnap) => querySnap.docs
+            .map((docSnap) => AppNotification.fromMap(docSnap.data()))
+            .toList());
+  }
+
+  Null clearNotifications({required String uid}) {
+    _db.collection('/userinfo/$uid/notifications').get().then(
+          (querySnapshot) => {
+            querySnapshot.docs.forEach(
+              (snapshot) => {
+                snapshot.reference.delete(),
+              },
+            )
+          },
+        );
   }
 }
