@@ -15,7 +15,7 @@ class Document<T> {
   Future<T> getData() async {
     var response = await ref.get();
 
-    return Global.models[T](response.data() as T);
+    return Global.models[T](response.data());
   }
 
   Stream<T> streamData() {

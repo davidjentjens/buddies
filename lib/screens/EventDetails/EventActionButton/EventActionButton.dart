@@ -64,7 +64,10 @@ class _EventActionButtonState extends State<EventActionButton> {
           showSnackBar: this.showSnackBar,
         );
       } else if (eventIsDuring) {
-        return InsertCodeButton();
+        return InsertCodeButton(
+          event: this.widget.event,
+          showSnackBar: this.showSnackBar,
+        );
       } else if (eventIsPast) {
         return ClosedButton();
       }
