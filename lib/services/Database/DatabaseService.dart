@@ -12,6 +12,20 @@ import 'package:buddies/models/AppNotification.dart';
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  Future<List<Event>> getEventHistoryForUser(User user) {
+    return _db
+        .collection('events')
+        .where("participants", arrayContains: {
+          "name": user.displayName,
+          "photoUrl": user.photoURL,
+          "uid": user.uid
+        })
+        .get()
+        .then((querySnap) => querySnap.docs
+            .map((docSnap) => Event.fromMap(docSnap.data()))
+            .toList());
+  }
+
   Future<List<Event>> getEventsForCategory(categoryId) {
     return _db
         .collection('events')
