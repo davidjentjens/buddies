@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../../widgets/EventModal.dart';
+import 'package:buddies/widgets/EventModal.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -83,7 +85,7 @@ class _MapScreenState extends State<MapScreen> {
     return 12742 * asin(sqrt(a));
   }
 
-  Iterable<Marker> getEventMarkers(List<Event> events) {
+  Iterable<Marker> getEventMarkers(List<Event> events, BuildContext context) {
     Iterable<Marker> markers = events.map(
       (event) => new Marker(
         markerId: MarkerId(event.id),
@@ -92,11 +94,9 @@ class _MapScreenState extends State<MapScreen> {
           event.locationData.longitude,
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
-        infoWindow: InfoWindow(
-          title: event.title,
-          snippet: event.description,
-          onTap: () {},
-        ),
+        onTap: () {
+          EventModal.showEventModal(context, event);
+        },
       ),
     );
 
@@ -123,7 +123,7 @@ class _MapScreenState extends State<MapScreen> {
               builder: (BuildContext context, AsyncSnapshot streamSnapshot) {
                 // print("Stream updated");
                 if (streamSnapshot.hasData) {
-                  var markers = getEventMarkers(streamSnapshot.data);
+                  var markers = getEventMarkers(streamSnapshot.data, context);
                   return GoogleMap(
                     markers: Set<Marker>.of(markers),
                     myLocationEnabled: true,

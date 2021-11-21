@@ -6,7 +6,7 @@ import '../../models/Event.dart';
 
 import 'HeroImage.dart';
 import 'EventActionButton/EventActionButton.dart';
-import 'EventHeader.dart';
+import '../../widgets/EventHeader.dart';
 import 'EventMap.dart';
 import 'EventParticipants.dart';
 

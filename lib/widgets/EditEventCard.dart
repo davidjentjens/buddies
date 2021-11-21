@@ -62,8 +62,20 @@ class EditEventCard extends StatelessWidget {
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16))),
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding:
+                    EdgeInsets.only(top: 8, left: 16, right: 16, bottom: 16),
                 child: Column(children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: Container(
+                      width: 40.0,
+                      height: 5.0,
+                      decoration: new BoxDecoration(
+                          color: Colors.grey,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                    ),
+                  ),
                   Text(
                     "Evento ${event.title}",
                     style: Theme.of(context).textTheme.headline5,
@@ -89,25 +101,7 @@ class EditEventCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text("O que deseja fazer com este evento?"),
-                        TextButton.icon(
-                          style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.black),
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(0)),
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              minimumSize:
-                                  MaterialStateProperty.all<Size>(Size(0, 0))),
-                          onPressed: () => Navigator.pop(context),
-                          icon: Icon(Icons.close),
-                          label: Text(""),
-                        )
-                      ]),
+                  Text("O que deseja fazer com este evento?"),
                   SizedBox(height: 16),
                   Expanded(
                     child: SizedBox(
