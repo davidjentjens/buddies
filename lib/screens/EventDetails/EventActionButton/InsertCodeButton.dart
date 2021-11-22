@@ -26,14 +26,21 @@ class InsertCodeButton extends StatelessWidget {
     return attendance.participantData[uid] ?? false;
   }
 
-  void userInsertCode(BuildContext context) async {
+  void userInsertCode(BuildContext context, User user) async {
     bool? confirmed = await Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => InsertParticipationCode(event: this.event)),
+          builder: (context) => InsertParticipationCode(
+                event: this.event,
+                user: user,
+              )),
     );
 
     if (confirmed == null || !confirmed) {
+      this.showSnackBar(
+        'O código informado está incorreto, tente novamente',
+        Colors.red[300],
+      );
       return;
     }
 
@@ -88,7 +95,7 @@ class InsertCodeButton extends StatelessWidget {
                         'Inserir código de participação',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      onPressed: () => userInsertCode(context),
+                      onPressed: () => userInsertCode(context, user),
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.zero),
