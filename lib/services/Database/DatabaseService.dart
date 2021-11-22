@@ -187,18 +187,6 @@ class DatabaseService {
         "longitude": event.locationData.longitude,
       },
       "point": event.point,
-      "creator": {
-        "uid": event.creator.uid,
-        "name": event.creator.name,
-        "photoUrl": event.creator.photoUrl
-      },
-      "participants": [
-        {
-          "uid": event.creator.uid,
-          "name": event.creator.name,
-          "photoUrl": event.creator.photoUrl
-        }
-      ],
       "category": event.category,
     }, SetOptions(merge: true));
   }
