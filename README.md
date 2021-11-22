@@ -22,8 +22,9 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
   - [x] Confirmação de participação
   - [x] Ocultar o botão de participar/sair do evento para o criador
   - [x] Gerar um PIN para cada evento e deixar visível para o criador
-  - [ ] Em até 48h após a participação, permitir que os participantes insiram o PIN para comprovar sua presença
-  - [ ] Depois das 48h, calcular o ranking dos participantes
+  - [x] ~~Em até 48h após a participação~~ Durante o evento, permitir que os participantes insiram o PIN para comprovar sua presença
+  - [ ] ~~Depois das 48h~~ Assim que acabar o evento, calcular o ranking dos participantes
+  - [ ] Impedir que usuários recebam mais de uma notificação do mesmo tipo em um dado evento
 - [x] Lógica para exibir eventos destacados
 - [x] Validação das regras de negócio
 
@@ -35,9 +36,9 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
   - [x] Implementar notificaçõos in-app
 - [x] Histórico de eventos participados e criados
 - [x] Implementar regra de negócio para usuário não poder estar inscrito em eventos no mesmo horário
-- [ ] Armazenamento dos interesses do usuário
-- [ ] Criar regras de segurança do firestore
 - [ ] Implementar um método mais eficiente e rápido de buscar imagens
+- [ ] Criar regras de segurança do firestore
+- [ ] Armazenamento dos interesses do usuário
 
 ### Mudanças de Design adicionais
 - [x] Trocar ícones de categorias na Home por imagens com títulos
