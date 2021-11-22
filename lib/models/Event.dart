@@ -16,6 +16,7 @@ class Event {
   dynamic point;
   UserDetails creator;
   List<UserDetails> participants;
+  List<dynamic> participantUids;
   String category;
   Category? categoryObject;
   bool? finished;
@@ -32,6 +33,7 @@ class Event {
     required this.point,
     required this.creator,
     required this.participants,
+    required this.participantUids,
     required this.category,
     this.finished,
     this.code,
@@ -51,6 +53,7 @@ class Event {
         participants: (data['participants'] ?? [])
             .map<UserDetails>((data) => UserDetails.fromMap(data))
             .toList(),
+        participantUids: (data['participantUids'] ?? []),
         category: data['category'] ?? 'MISC',
         finished: data['finished'],
         code: data['code']);

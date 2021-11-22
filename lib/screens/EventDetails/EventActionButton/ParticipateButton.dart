@@ -60,7 +60,8 @@ class ParticipateButton extends StatelessWidget {
           "startTime": this.event.startTime,
           "endTime": this.event.endTime,
         }
-      ])
+      ]),
+      "participantUids": FieldValue.arrayUnion([this.user.uid])
     });
 
     this.showSnackBar(

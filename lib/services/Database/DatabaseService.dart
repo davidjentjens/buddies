@@ -15,11 +15,7 @@ class DatabaseService {
   Future<List<Event>> getEventHistoryForUser(User user) {
     return _db
         .collection('events')
-        .where("participants", arrayContains: {
-          "name": user.displayName,
-          "photoUrl": user.photoURL,
-          "uid": user.uid
-        })
+        .where("participantUids", arrayContains: user.uid)
         .get()
         .then((querySnap) => querySnap.docs
             .map((docSnap) => Event.fromMap(docSnap.data()))
@@ -75,7 +71,7 @@ class DatabaseService {
         .collection(collectionRef: _db.collection('events'))
         .within(
             center: center, radius: radius, field: 'point', strictMode: true)
-        .map((event) => event
+        .map((events) => events
             .map((e) => Event.fromMap(e.data()!))
             .where((event) =>
                 DateTime.now().millisecondsSinceEpoch <
@@ -86,11 +82,7 @@ class DatabaseService {
   Future<List<Event>> getUserFutureEvents(User user) {
     return _db
         .collection('events')
-        .where("participants", arrayContains: {
-          "uid": user.uid,
-          "name": user.displayName,
-          "photoUrl": user.photoURL
-        })
+        .where("participantUids", arrayContains: user.uid)
         .where("startTime", isGreaterThan: DateTime.now())
         .get()
         .then((querySnap) => querySnap.docs
@@ -126,17 +118,12 @@ class DatabaseService {
   }
 
   Stream<Event> streamUserCurrentEvent(User user) {
-    // TODO: 'photoUrl' can be changed, breaking this query. Find workaround
     try {
       return _db
           .collection('events')
           .where("startTime", isLessThan: DateTime.now())
           .where("finished", isEqualTo: false)
-          .where("participants", arrayContains: {
-            "name": user.displayName,
-            "uid": user.uid,
-            "photoUrl": user.photoURL
-          })
+          .where("participantUids", arrayContains: user.uid)
           .snapshots()
           .map((querySnap) => querySnap.docs
               .map((docSnap) => Event.fromMap(docSnap.data()))
@@ -175,6 +162,9 @@ class DatabaseService {
           "name": event.creator.name,
           "photoUrl": event.creator.photoUrl
         }
+      ],
+      "participantUids": [
+        event.creator.uid,
       ],
       "category": event.category,
       "finished": false,

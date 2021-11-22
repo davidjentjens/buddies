@@ -128,6 +128,7 @@ class EditButton extends StatelessWidget {
       point: selectedPoint.data,
       creator: creatorUser,
       participants: [creatorUser],
+      participantUids: [user.uid],
       category: this.selectedCategory!.id,
     );
 

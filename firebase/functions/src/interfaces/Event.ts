@@ -13,6 +13,7 @@ export default interface Event{
   point: any;
   creator: UserDetails;
   participants: UserDetails[];
+  participantUids: string[];
   category: string;
   finished: boolean;
   code: string;

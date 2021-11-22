@@ -77,7 +77,8 @@ class LeaveButton extends StatelessWidget {
           "photoUrl": user.photoURL,
           "uid": user.uid,
         }
-      ])
+      ]),
+      "participantUids": FieldValue.arrayRemove([user.uid])
     });
 
     var userInfoDoc = Document<Event>(path: 'userinfo/${this.user.uid}');
