@@ -42,6 +42,17 @@ class ParticipateButton extends StatelessWidget {
       ])
     });
 
+    var userInfoDoc = Document<Event>(path: 'userinfo/${this.user.uid}');
+    await userInfoDoc.update({
+      "events": FieldValue.arrayUnion([
+        {
+          "id": this.event.id,
+          "startTime": this.event.startTime,
+          "endTime": this.event.endTime,
+        }
+      ])
+    });
+
     this.showSnackBar(
       'Parabéns! Você está participando deste evento!',
       Colors.green[300],

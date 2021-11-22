@@ -80,6 +80,17 @@ class LeaveButton extends StatelessWidget {
       ])
     });
 
+    var userInfoDoc = Document<Event>(path: 'userinfo/${this.user.uid}');
+    await userInfoDoc.update({
+      "events": FieldValue.arrayRemove([
+        {
+          "id": this.event.id,
+          "startTime": this.event.startTime,
+          "endTime": this.event.endTime,
+        }
+      ])
+    });
+
     this.showSnackBar(
       "Você saiu deste evento. Esperamos vê-lo em breve!",
       Colors.red[300],
