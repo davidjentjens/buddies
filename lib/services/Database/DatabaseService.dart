@@ -239,4 +239,19 @@ class DatabaseService {
           },
         );
   }
+
+  Future<bool> hasConflictingEventTimes(String uid, Event event) async {
+    var userInfo = (await _db.doc('userinfo/$uid').get()).data();
+
+    var userEvents = userInfo!['events'] as List<dynamic>;
+
+    for (var userEvent in userEvents) {
+      if (!(event.endTime.compareTo(userEvent['startTime']) < 0) &&
+          !(event.startTime.compareTo(userEvent['endTime']) > 0)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }

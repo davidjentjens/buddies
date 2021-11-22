@@ -1,3 +1,4 @@
+import 'package:buddies/services/Database/DatabaseService.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,6 +22,15 @@ class ParticipateButton extends StatelessWidget {
   }) : super(key: key);
 
   void _userParticipate(BuildContext context) async {
+    if (await DatabaseService()
+        .hasConflictingEventTimes(this.user.uid, this.event)) {
+      this.showSnackBar(
+        'Você está participando de um evento cujo horário coincide com este. Verifique sua Agenda.',
+        Colors.red[300],
+      );
+      return;
+    }
+
     bool? confirmed = await Navigator.push(
       context,
       MaterialPageRoute(
