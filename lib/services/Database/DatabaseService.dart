@@ -7,7 +7,7 @@ import 'dart:math';
 
 import '../../models/Event.dart';
 import '../../models/Category.dart';
-import 'package:buddies/models/AppNotification.dart';
+import '../../models/AppNotification.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -45,16 +45,17 @@ class DatabaseService {
         .toList());
   }
 
-  Stream<List<Category>> streamMostPopularCategories(
-      {required int categoryNum}) {
+  Future<List<Category>> getMostPopularCategories({required int categoryNum}) {
     return _db
         .collection('categories')
         .orderBy('eventNum', descending: true)
         .limit(categoryNum)
-        .snapshots()
-        .map((querySnap) => querySnap.docs
-            .map((docSnap) => Category.fromMap(docSnap.data()))
-            .toList());
+        .get()
+        .then(
+          (querySnap) => querySnap.docs
+              .map((docSnap) => Category.fromMap(docSnap.data()))
+              .toList(),
+        );
   }
 
   Stream<List<Event>> streamUserFeaturedEvents(
@@ -121,6 +122,27 @@ class DatabaseService {
       }
       // Returns the updated events list
       yield eventList;
+    }
+  }
+
+  Stream<Event> streamUserCurrentEvent(User user) {
+    // TODO: 'photoUrl' can be changed, breaking this query. Find workaround
+    try {
+      return _db
+          .collection('events')
+          .where("startTime", isLessThan: DateTime.now())
+          .where("finished", isEqualTo: false)
+          .where("participants", arrayContains: {
+            "name": user.displayName,
+            "uid": user.uid,
+            "photoUrl": user.photoURL
+          })
+          .snapshots()
+          .map((querySnap) => querySnap.docs
+              .map((docSnap) => Event.fromMap(docSnap.data()))
+              .toList()[0]);
+    } catch (err) {
+      return Stream.empty();
     }
   }
 

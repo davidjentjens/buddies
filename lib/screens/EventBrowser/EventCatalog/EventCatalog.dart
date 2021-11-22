@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../services/Database/DatabaseService.dart';
-import '../../services/LocationService.dart';
-import '../../models/Event.dart';
-import '../../widgets/Loader.dart';
-import '../../screens/EventBrowser/CategoryPage.dart';
+import '../../../services/Database/DatabaseService.dart';
+import '../../../services/LocationService.dart';
+import '../../../models/Event.dart';
+import '../../../widgets/Loader.dart';
+import '../CategoryPage.dart';
 
+import 'CurrentEvent.dart';
 import 'EventCarousel.dart';
 import 'CategoryGrid.dart';
 
@@ -29,7 +30,7 @@ class EventCatalog extends StatelessWidget {
                   return Container(
                     child: ListView(
                       children: [
-                        //EventCard(event: streamSnapshot.data[0])
+                        CurrentEvent(),
                         streamSnapshot.data.length != 0
                             ? EventCarousel(events: streamSnapshot.data)
                             : SizedBox(height: 25),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/AvatarButton.dart';
-import 'CategoryGrid.dart';
+import 'EventCatalog/CategoryGrid.dart';
 
 class CategoryPage extends StatelessWidget {
   const CategoryPage({Key? key}) : super(key: key);

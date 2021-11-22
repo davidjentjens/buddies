@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/AvatarButton.dart';
 import '../../widgets/NotificationButton/NotificationButton.dart';
 import 'EventSearchResults.dart';
-import 'EventCatalog.dart';
+import 'EventCatalog/EventCatalog.dart';
 
 class EventBrowserScreen extends StatefulWidget {
   const EventBrowserScreen({Key? key}) : super(key: key);

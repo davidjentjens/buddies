@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../models/Event.dart';
-import '../../widgets/EventCard.dart';
+import '../../../models/Event.dart';
+import '../../../widgets/EventCard.dart';
 
 class EventCarousel extends StatefulWidget {
   final List<Event> events;
