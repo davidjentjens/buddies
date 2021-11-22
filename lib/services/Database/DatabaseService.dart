@@ -83,7 +83,7 @@ class DatabaseService {
             .toList());
   }
 
-  Stream<List<Event>> getUserFutureEvents(User user) {
+  Future<List<Event>> getUserFutureEvents(User user) {
     return _db
         .collection('events')
         .where("participants", arrayContains: {
@@ -92,8 +92,8 @@ class DatabaseService {
           "photoUrl": user.photoURL
         })
         .where("startTime", isGreaterThan: DateTime.now())
-        .snapshots()
-        .map((querySnap) => querySnap.docs
+        .get()
+        .then((querySnap) => querySnap.docs
             .map((docSnap) => Event.fromMap(docSnap.data()))
             .toList());
   }

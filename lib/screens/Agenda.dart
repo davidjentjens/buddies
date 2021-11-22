@@ -40,8 +40,8 @@ class AgendaScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6),
         actions: [AvatarButton()],
       ),
-      body: StreamBuilder<List<Event>>(
-          stream: DatabaseService().getUserFutureEvents(user),
+      body: FutureBuilder<List<Event>>(
+          future: DatabaseService().getUserFutureEvents(user),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView(
