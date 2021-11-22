@@ -33,11 +33,11 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [x] Implementar notificações
   - [x] Implementar notificações push
   - [x] Implementar notificaçõos in-app
-- [ ] Histórico de eventos participados e criados
+- [x] Histórico de eventos participados e criados
+- [x] Implementar regra de negócio para usuário não poder estar inscrito em eventos no mesmo horário
 - [ ] Armazenamento dos interesses do usuário
 - [ ] Criar regras de segurança do firestore
 - [ ] Implementar um método mais eficiente e rápido de buscar imagens
-- [ ] Implementar regra de negócio para usuário não poder estar inscrito em eventos no mesmo horário
 
 ### Mudanças de Design adicionais
 - [x] Trocar ícones de categorias na Home por imagens com títulos
