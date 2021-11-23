@@ -39,6 +39,7 @@ Um aplicativo em flutter que ajuda as pessoas a encontrar atividades sociais em 
 - [x] Implementar um método mais eficiente e rápido de buscar imagens
 - [ ] Criar regras de segurança do firestore
 - [ ] Reorganizar/Refatorar DatabaseService
+- [ ] Implementar replicação correta dos ratings e das datas de participação em Eventos utilizando cloud functions
 - [ ] Armazenamento dos interesses do usuário
 
 ### Mudanças de Design adicionais
