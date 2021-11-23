@@ -62,10 +62,7 @@ class DatabaseService {
       longitude: userCoordinates.longitude,
     );
 
-    /*var queryRef = _db
-        .collection('events')
-        .where("startTime", isGreaterThan: DateTime.now())
-        .orderBy("startTime");*/
+    // TODO: Implementar utilização de interesses?
 
     return geo
         .collection(collectionRef: _db.collection('events'))
@@ -95,6 +92,7 @@ class DatabaseService {
     var eventsStream = _db
         .collection('events')
         .where("creator.uid", isEqualTo: user.uid)
+        .where("startTime", isGreaterThan: DateTime.now())
         .snapshots()
         .map((querySnap) => querySnap.docs
             .map((docSnap) => Event.fromMap(docSnap.data()))
