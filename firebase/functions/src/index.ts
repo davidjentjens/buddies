@@ -2,6 +2,8 @@
 
 export {sweepEventsPeriodically} from "./functions/SweepEventsPeriodically/SweepEventsPeriodically";
 
+export {createEventNotificationFields} from "./functions/CreateEventNotificationFields";
+
 export {createUserInfoRecord} from "./functions/CreateUserInfoRecord";
 
 export {incrementCategoryEventNum} from "./functions/IncrementCategoryEventNum";

@@ -1,5 +1,6 @@
+import 'package:buddies/models/UserInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../models/Event.dart';
@@ -7,7 +8,7 @@ import '../../../services/Database/Document.dart';
 
 class LeaveButton extends StatelessWidget {
   final Event event;
-  final User user;
+  final FirebaseAuth.User user;
 
   final Function showSnackBar;
 
@@ -18,7 +19,7 @@ class LeaveButton extends StatelessWidget {
     required this.showSnackBar,
   }) : super(key: key);
 
-  void _userLeave(BuildContext context, User user) async {
+  void _userLeave(BuildContext context, FirebaseAuth.User user) async {
     var eventDate = DateTime.fromMillisecondsSinceEpoch(
         this.event.startTime.millisecondsSinceEpoch);
 
@@ -40,6 +41,17 @@ class LeaveButton extends StatelessWidget {
       );
       return;
     }
+
+    var userInfoDoc = Document<UserInfo>(path: 'userinfo/${user.uid}');
+    await userInfoDoc.update({
+      "events": FieldValue.arrayRemove([
+        {
+          "id": this.event.id,
+          "startTime": this.event.startTime,
+          "endTime": this.event.endTime,
+        }
+      ])
+    });
 
     if (eventDate.difference(DateTime.now()).inHours < 24) {
       bool confirm = await showDialog(
@@ -65,31 +77,30 @@ class LeaveButton extends StatelessWidget {
       if (!confirm) {
         return;
       } else {
-        //TODO: Implementar redução de ranking
+        await userInfoDoc.update({
+          "participationPoints": FieldValue.increment(0.75),
+          "totalParticipation": FieldValue.increment(1)
+        });
       }
     }
 
     var eventDoc = Document<Event>(path: 'events/${this.event.id}');
+
+    var participantData = this
+        .event
+        .participants
+        .singleWhere((element) => element.uid == this.user.uid);
+
     await eventDoc.update({
       "participants": FieldValue.arrayRemove([
         {
           "name": user.displayName,
           "photoUrl": user.photoURL,
           "uid": user.uid,
+          "rating": participantData.rating
         }
       ]),
       "participantUids": FieldValue.arrayRemove([user.uid])
-    });
-
-    var userInfoDoc = Document<Event>(path: 'userinfo/${this.user.uid}');
-    await userInfoDoc.update({
-      "events": FieldValue.arrayRemove([
-        {
-          "id": this.event.id,
-          "startTime": this.event.startTime,
-          "endTime": this.event.endTime,
-        }
-      ])
     });
 
     this.showSnackBar(

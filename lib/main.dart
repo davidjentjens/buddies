@@ -15,7 +15,7 @@ import 'screens/Agenda.dart';
 import 'screens/EventBrowser/EventBrowser.dart';
 import 'screens/Login.dart';
 import 'screens/Map/Map.dart';
-import 'screens/Profile.dart';
+import 'screens/Profile/Profile.dart';
 import 'screens/Notifications/Notifications.dart';
 import 'services/Auth.dart';
 import 'services/Database/Document.dart';

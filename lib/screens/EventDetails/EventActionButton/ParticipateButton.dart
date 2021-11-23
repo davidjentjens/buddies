@@ -1,16 +1,17 @@
-import 'package:buddies/services/Database/DatabaseService.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../models/Event.dart';
+import '../../../models/UserInfo.dart';
 import '../../../services/Database/Document.dart';
+import '../../../services/Database/DatabaseService.dart';
 
 import 'ConfirmParticipation.dart';
 
 class ParticipateButton extends StatelessWidget {
   final Event event;
-  final User user;
+  final FirebaseAuth.User user;
 
   final Function showSnackBar;
 
@@ -41,17 +42,6 @@ class ParticipateButton extends StatelessWidget {
       return;
     }
 
-    var eventDoc = Document<Event>(path: 'events/${this.event.id}');
-    await eventDoc.update({
-      "participants": FieldValue.arrayUnion([
-        {
-          "name": this.user.displayName,
-          "photoUrl": this.user.photoURL,
-          "uid": this.user.uid,
-        }
-      ])
-    });
-
     var userInfoDoc = Document<Event>(path: 'userinfo/${this.user.uid}');
     await userInfoDoc.update({
       "events": FieldValue.arrayUnion([
@@ -59,6 +49,26 @@ class ParticipateButton extends StatelessWidget {
           "id": this.event.id,
           "startTime": this.event.startTime,
           "endTime": this.event.endTime,
+        }
+      ]),
+      "participantUids": FieldValue.arrayUnion([this.user.uid])
+    });
+
+    var userInfo =
+        await Document<UserInfo>(path: 'userinfo/${user.uid}').getData();
+    var rating = 5.0;
+    if (userInfo.totalParticipation != 0) {
+      rating = (userInfo.participationPoints / userInfo.totalParticipation) * 5;
+    }
+
+    var eventDoc = Document<Event>(path: 'events/${this.event.id}');
+    await eventDoc.update({
+      "participants": FieldValue.arrayUnion([
+        {
+          "name": this.user.displayName,
+          "photoUrl": this.user.photoURL,
+          "uid": this.user.uid,
+          "rating": rating.toStringAsFixed(1)
         }
       ]),
       "participantUids": FieldValue.arrayUnion([this.user.uid])

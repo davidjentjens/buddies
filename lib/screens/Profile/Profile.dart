@@ -1,11 +1,13 @@
-import 'package:buddies/services/Database/DatabaseService.dart';
-import 'package:buddies/widgets/EventCard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../widgets/Loader.dart';
-import '../services/Auth.dart';
+import '../../widgets/Loader.dart';
+import '../../widgets/EventCard.dart';
+import '../../services/Auth.dart';
+import '../../services/Database/DatabaseService.dart';
+
+import 'ProfileHeader.dart';
 
 class ProfileScreen extends StatelessWidget {
   final AuthService auth = AuthService();
@@ -53,16 +55,18 @@ class ProfileScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _profileHeader(context, user),
+              ProfileHeader(user: user),
               Divider(),
+              SizedBox(height: 10),
               FutureBuilder(
                   future: _eventHistory(context, user),
                   builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
                     if (snapshot.hasData) {
                       return Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: snapshot.data!);
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: snapshot.data!,
+                      );
                     }
                     return Text(
                         "Parece que você ainda não participou de nenhum evento.");
@@ -70,35 +74,6 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _profileHeader(BuildContext context, User user) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-              child: CircleAvatar(
-                backgroundImage: user.photoURL != null
-                    ? NetworkImage(user.photoURL!)
-                    : AssetImage("assets/avatar_placeholder.jpg")
-                        as ImageProvider,
-              ),
-              height: 75,
-              width: 75),
-          SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(user.displayName ?? '',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22)),
-              SizedBox(height: 0),
-            ],
-          ),
-        ],
       ),
     );
   }

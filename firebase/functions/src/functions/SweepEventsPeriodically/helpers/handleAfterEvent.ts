@@ -1,3 +1,4 @@
+import {firestore} from "firebase-admin";
 import admin from "../../../config/admin";
 
 import Event from "../../../interfaces/Event";
@@ -12,13 +13,31 @@ const handleAfterEvent = async (db: FirebaseFirestore.Firestore,
     "finished": true,
   });
 
-  // TODO: Implement rating calculation based on event attendance (attendance)
-
   if (eventTopic.uids.length === 0) {
     return;
   }
 
+  const attendanceDoc = await db.doc(`attendance/${event.id}`).get();
+  const attendance = attendanceDoc.data();
+
+  if (!attendance) {
+    return;
+  }
+
   await Promise.all(eventTopic.uids.map(async (uid) => {
+    const userInfoDoc = db.doc(`userinfo/${uid}`);
+
+    if (attendance.participantData[uid] === true) {
+      await userInfoDoc.set({
+        "participationPoints": firestore.FieldValue.increment(1),
+        "totalParticipation": firestore.FieldValue.increment(1),
+      }, {merge: true});
+    } else {
+      await userInfoDoc.set({
+        "totalParticipation": firestore.FieldValue.increment(1),
+      }, {merge: true});
+    }
+
     const notification: Notification = {
       title: "Evento encerrado buddies!",
       body: `O evento ${event.title} está encerrado. Esperamos que` +
@@ -32,7 +51,7 @@ const handleAfterEvent = async (db: FirebaseFirestore.Firestore,
     await sendNotification(db, uid, notification);
   }));
 
-  await db.doc(`topics/${event.id}`).delete();
+  // await db.doc(`topics/${event.id}`).delete();
 };
 
 export default handleAfterEvent;

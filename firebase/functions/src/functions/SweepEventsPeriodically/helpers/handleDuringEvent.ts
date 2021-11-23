@@ -8,7 +8,7 @@ import sendNotification from "../../../helpers/sendNotification";
 
 const handleDuringEvent = async (db: FirebaseFirestore.Firestore,
     event:Event, eventTopic: Topic): Promise<void> => {
-  if (eventTopic.uids.length === 0) {
+  if (event.duringNotificationSent || eventTopic.uids.length === 0) {
     return;
   }
 

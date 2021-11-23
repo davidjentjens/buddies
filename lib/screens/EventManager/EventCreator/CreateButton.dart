@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:place_picker/place_picker.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -11,7 +11,9 @@ import '../../../models/LocationData.dart';
 import '../../../models/UserDetails.dart';
 import '../../../models/Event.dart';
 import '../../../models/Category.dart';
+import '../../../models/UserInfo.dart';
 import '../../../widgets/Loader.dart';
+import '../../../services/Database/Document.dart';
 
 class CreateButton extends StatelessWidget {
   final formKey;
@@ -33,7 +35,7 @@ class CreateButton extends StatelessWidget {
       required this.selectedLocation})
       : super(key: key);
 
-  _submitForm(BuildContext context, User user) async {
+  _submitForm(BuildContext context, FirebaseAuth.User user) async {
     if (!formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
         content: Text(
@@ -102,10 +104,19 @@ class CreateButton extends StatelessWidget {
         latitude: this.selectedLocation!.latLng!.latitude,
         longitude: this.selectedLocation!.latLng!.longitude);
 
+    var userInfo =
+        await Document<UserInfo>(path: 'userinfo/${user.uid}').getData();
+    var rating = 5.0;
+
+    if (userInfo.totalParticipation != 0) {
+      rating = (userInfo.participationPoints / userInfo.totalParticipation) * 5;
+    }
+
     UserDetails creatorUser = new UserDetails(
       uid: user.uid,
       name: user.displayName ?? 'Criador Anônimo',
       photoUrl: user.photoURL ?? '',
+      rating: rating.toStringAsFixed(1),
     );
 
     LocationData locationData = new LocationData(
@@ -175,7 +186,7 @@ class CreateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<User?>(context);
+    var user = Provider.of<FirebaseAuth.User?>(context);
 
     if (user == null) {
       return LoadingScreen();

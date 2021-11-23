@@ -4,6 +4,7 @@ import '../models/Event.dart';
 import '../models/Category.dart';
 import '../models/AppNotification.dart';
 import '../models/Attendance.dart';
+import '../models/UserInfo.dart';
 
 /// Static global state. Immutable services that do not care about build context.
 class Global {
@@ -19,5 +20,6 @@ class Global {
     Category: (data) => Category.fromMap(data),
     AppNotification: (data) => AppNotification.fromMap(data),
     Attendance: (data) => Attendance.fromMap(data),
+    UserInfo: (data) => UserInfo.fromMap(data),
   };
 }

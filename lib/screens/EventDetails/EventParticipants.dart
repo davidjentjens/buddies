@@ -56,7 +56,7 @@ class EventParticipants extends StatelessWidget {
                                 ),
                                 SizedBox(width: 2),
                                 Text(
-                                  "4.6",
+                                  participant.rating,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16.0),

@@ -15,6 +15,8 @@ export default interface Event{
   participants: UserDetails[];
   participantUids: string[];
   category: string;
+  beforeNotificationSent: boolean;
+  duringNotificationSent: boolean;
   finished: boolean;
   code: string;
 }
