@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -8,11 +8,12 @@ import 'dart:math';
 import '../../models/Event.dart';
 import '../../models/Category.dart';
 import '../../models/AppNotification.dart';
+import '../../models/UserInfo.dart';
 
 class DatabaseService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<List<Event>> getEventHistoryForUser(User user) {
+  Future<List<Event>> getEventHistoryForUser(FirebaseAuth.User user) {
     return _db
         .collection('events')
         .where("participantUids", arrayContains: user.uid)
@@ -76,7 +77,7 @@ class DatabaseService {
             .toList());
   }
 
-  Future<List<Event>> getUserFutureEvents(User user) {
+  Future<List<Event>> getUserFutureEvents(FirebaseAuth.User user) {
     return _db
         .collection('events')
         .where("participantUids", arrayContains: user.uid)
@@ -87,7 +88,7 @@ class DatabaseService {
             .toList());
   }
 
-  Stream<List<Event>> getUserCreatedEvents(User user) async* {
+  Stream<List<Event>> getUserCreatedEvents(FirebaseAuth.User user) async* {
     // Gets the events stream
     var eventsStream = _db
         .collection('events')
@@ -115,7 +116,7 @@ class DatabaseService {
     }
   }
 
-  Stream<Event> streamUserCurrentEvent(User user) {
+  Stream<Event> streamUserCurrentEvent(FirebaseAuth.User user) {
     try {
       return _db
           .collection('events')
@@ -133,6 +134,13 @@ class DatabaseService {
 
   Future<Null> createEvent(Event event) async {
     NumberFormat formatter = new NumberFormat("0000");
+
+    var userInfoDoc = await _db.doc('userinfo/${event.creator.uid}').get();
+    var userInfo = UserInfo.fromMap(userInfoDoc.data()!);
+    var rating = 5.0;
+    if (userInfo.totalParticipation != 0) {
+      rating = (userInfo.participationPoints / userInfo.totalParticipation) * 5;
+    }
 
     var newEventDocRef = _db.collection('events').doc();
     await newEventDocRef.set({
@@ -152,13 +160,15 @@ class DatabaseService {
       "creator": {
         "uid": event.creator.uid,
         "name": event.creator.name,
-        "photoUrl": event.creator.photoUrl
+        "photoUrl": event.creator.photoUrl,
+        "rating": rating.toStringAsFixed(1)
       },
       "participants": [
         {
           "uid": event.creator.uid,
           "name": event.creator.name,
-          "photoUrl": event.creator.photoUrl
+          "photoUrl": event.creator.photoUrl,
+          "rating": rating.toStringAsFixed(1)
         }
       ],
       "participantUids": [

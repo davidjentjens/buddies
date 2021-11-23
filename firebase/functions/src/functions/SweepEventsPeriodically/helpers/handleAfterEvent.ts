@@ -51,7 +51,8 @@ const handleAfterEvent = async (db: FirebaseFirestore.Firestore,
     await sendNotification(db, uid, notification);
   }));
 
-  // await db.doc(`topics/${event.id}`).delete();
+  await db.doc(`topics/${event.id}`).delete();
+  await db.doc(`attendance/${event.id}`).delete();
 };
 
 export default handleAfterEvent;

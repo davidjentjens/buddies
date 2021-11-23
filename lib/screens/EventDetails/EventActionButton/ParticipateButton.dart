@@ -51,7 +51,6 @@ class ParticipateButton extends StatelessWidget {
           "endTime": this.event.endTime,
         }
       ]),
-      "participantUids": FieldValue.arrayUnion([this.user.uid])
     });
 
     var userInfo =
