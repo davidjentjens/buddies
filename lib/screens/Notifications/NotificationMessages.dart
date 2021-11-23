@@ -42,7 +42,7 @@ class _NotificationMessagesState extends State<NotificationMessages> {
             (notification) => Column(
               children: [
                 Dismissible(
-                  key: Key(notification.title),
+                  key: Key(notification.id),
                   child: ListTile(
                     leading: Icon(
                       _getIcon(notification.type),

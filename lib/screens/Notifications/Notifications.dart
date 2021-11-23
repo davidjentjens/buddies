@@ -30,8 +30,9 @@ class NotificationsScreen extends StatelessWidget {
               title: Text("Notifications"),
               actions: [
                 IconButton(
-                  onPressed: () => {},
-                  //DatabaseService().clearNotifications(uid: user.uid),
+                  onPressed: () {
+                    DatabaseService().clearNotifications(uid: user.uid);
+                  },
                   icon: Icon(Icons.cleaning_services),
                 )
               ],
