@@ -11,6 +11,10 @@ class EditEventCard extends StatelessWidget {
 
   const EditEventCard({Key? key, required this.event}) : super(key: key);
 
+  bool eventHasStarted(Event event) {
+    return event.startTime.toDate().isBefore(DateTime.now());
+  }
+
   Future<bool> confirmDeletion(BuildContext context) async {
     return await showDialog(
       context: context,
@@ -55,7 +59,9 @@ class EditEventCard extends StatelessWidget {
         backgroundColor: Colors.transparent,
         builder: (BuildContext context) {
           return Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: !eventHasStarted(this.event)
+                  ? MediaQuery.of(context).size.height * 0.6
+                  : MediaQuery.of(context).size.height * 0.5,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -125,24 +131,28 @@ class EditEventCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Expanded(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    EventEditor(event: event),
-                              ),
-                            );
-                          },
-                          icon: Icon(Icons.edit),
-                          label: Text("Editar")),
-                    ),
-                  ),
+                  !eventHasStarted(this.event)
+                      ? SizedBox(height: 16)
+                      : Container(),
+                  !eventHasStarted(this.event)
+                      ? Expanded(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton.icon(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          EventEditor(event: event),
+                                    ),
+                                  );
+                                },
+                                icon: Icon(Icons.edit),
+                                label: Text("Editar")),
+                          ),
+                        )
+                      : Container(),
                   SizedBox(height: 16),
                   Expanded(
                     child: SizedBox(

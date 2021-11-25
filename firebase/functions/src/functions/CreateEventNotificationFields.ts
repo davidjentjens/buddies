@@ -11,7 +11,7 @@ export const createEventNotificationFields = functions.firestore
     .onCreate(async (snapshot, _context) => {
       const event = snapshot.data() as Event;
 
-      await db.doc(`events/${event.id}`).create({
+      await db.doc(`events/${event.id}`).update({
         "beforeNotificationSent": false,
         "duringNotificationSent": false,
       });

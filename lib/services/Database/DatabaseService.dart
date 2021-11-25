@@ -93,7 +93,7 @@ class DatabaseService {
     var eventsStream = _db
         .collection('events')
         .where("creator.uid", isEqualTo: user.uid)
-        .where("startTime", isGreaterThan: DateTime.now())
+        .where("endTime", isGreaterThan: DateTime.now())
         .snapshots()
         .map((querySnap) => querySnap.docs
             .map((docSnap) => Event.fromMap(docSnap.data()))
